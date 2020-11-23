@@ -125,7 +125,7 @@
                 <input type="text" data-edit="inserttext" id="voiceBtn" x-webkit-speech="">
               </div>
 
-            <form>
+            <form id="forms">
                 <div class="form-group">
                     <label for="genreSelect">Select Genre</label>
                     <select class="form-control" id="genreSelect">
@@ -154,7 +154,9 @@
                   <li class="list-group-item" onclick="text_append()">Text 2</li>
                 </ul>
                 </div>
-                
+                SYNONYMS<br>
+                <p style="display: inline" id="synonym1"></p>
+                <p style="display: inline" id="synonym2"></p>
             </form>
         </div>
         <hr/>
@@ -325,5 +327,30 @@
           $("#editor").append("<P>This is a message");
           document.getElementById('hidden_div').style.display = 'none';
         }
+        </script>
+        
+        <script>
+        $('#editor').on('click', function(){
+          var selectedText = "Hello";
+          if (window.getSelection) {
+              selectedText = window.getSelection().toString();
+              
+          } else if (document.selection && document.selection.type != "Control") {
+                text = document.selection.createRange().text;        
+          }
+          console.log("Selected Text "+selectedText);
+              $.ajax({
+                    type : 'POST',
+                    url : "{{url_for('synonyms')}}",
+                    dataType:'json',
+                    contentType: 'application/json;charset=utf-8',
+                    data : JSON.stringify({'selectedText': selectedText}),
+                    success: function(res){
+                        console.log(res);
+                        document.getElementById("synonym1").textContent = res.synonyms;
+                        document.getElementById("synonym2").textContent = res.synonyms1;
+                    },
+                });
+         });
         </script>
 {% endblock %}
