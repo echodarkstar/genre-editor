@@ -16,12 +16,15 @@
       <script src="{{ url_for('static', filename='bootstrap-wysiwyg.js') }}" ></script>  
       <title>{{ title }} - Genre Editor</title>
       <style>
+              html, body {
+                overflow-x: hidden;                
+                overflow-y: hidden;
+              }
               div.loading {
-                background: url(http://www.xiconeditor.com/image/icons/loading.gif) no-repeat right;
+                background: url(http://www.xiconeditor.com/image/icons/loading.gif) no-repeat;
               }
               #editor {
-	              max-height: 250px;
-	              height: 250px;
+	              height:680px;
 	              background-color: white;
 	              border-collapse: separate;
                 border: 1px solid rgb(204, 204, 204);
@@ -61,108 +64,167 @@
               #hidden_div {
                 display: none;
               }
+              .label {
+  color: white;
+  padding: 8px;
+}
+
+.success {background-color: #4CAF50;} /* Green */
+.info {background-color: #2196F3;} /* Blue */
+.warning {background-color: #ff9800;} /* Orange */
+.danger {background-color: #f44336;} /* Red */
+.other {background-color: #e7e7e7; color: black;} /* Gray */
             </style>
     </head>
     <body>
-        <div class="container">
-            <div class="hero-unit">
-            <h1>GENRE EDITOR,<small> {{ user.username }}!</small></h1>
-            <hr/>
-            <div id="alerts"></div>
-            <div class="btn-toolbar" data-role="editor-toolbar" data-target="#editor">
-                <div class="btn-group">
-                  <a class="btn dropdown-toggle" data-toggle="dropdown" title="Font"><i class="icon-font"></i><b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                    </ul>
+        <div class="">
+          <div class="row">
+            <div class="col-xs-2" style="padding-top:250px;padding-right:50px;padding-left:70px">
+              <span class="label info">SYNONYMS</span><br><br>
+              <p style="display: inline;padding:5px;box-shadow:0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);" id="synonym1" ></p><br><br>
+              <p style="display: inline;padding:5px;box-shadow:0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);" id="synonym2"></p>
+            </div>
+            <div class="col-xs-10">
+              <div class="hero-unit" style="padding:10px; background-color :#FAFAFA; box-shadow:0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);;width:1200px;">
+                <h3>GENRE EDITOR,<small> {{ user.username }}!</small></h3>
+                <hr/>
+                <div id="alerts"></div>
+                <div class="btn-toolbar" data-role="editor-toolbar" data-target="#editor">
+                    <div class="btn-group">
+                      <a class="btn dropdown-toggle" data-toggle="dropdown" title="Font"><i class="icon-font"></i><b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        </ul>
+                      </div>
+                    <!--<div class="btn-group">
+                      <a class="btn dropdown-toggle" data-toggle="dropdown" title="Font Size"><i class="icon-text-height"></i>&nbsp;<b class="caret"></b></a>
+                        <ul class="dropdown-menu">;
+                        <li><a data-edit="fontSize 5"><font size="5">Huge</font></a></li>
+                        <li><a data-edit="fontSize 3"><font size="3">Normal</font></a></li>
+                        <li><a data-edit="fontSize 1"><font size="1">Small</font></a></li>
+                        </ul>
+                    </div>-->
+                    <div class="btn-group">
+                      <a class="btn" data-edit="bold" title="Bold (Ctrl/Cmd+B)"><i class="icon-bold"></i></a>
+                      <a class="btn" data-edit="italic" title="Italic (Ctrl/Cmd+I)"><i class="icon-italic"></i></a>
+                      <a class="btn" data-edit="strikethrough" title="Strikethrough"><i class="icon-strikethrough"></i></a>
+                      <a class="btn" data-edit="underline" title="Underline (Ctrl/Cmd+U)"><i class="icon-underline"></i></a>
+                    </div>
+                    <div class="btn-group">
+                      <a class="btn" data-edit="insertunorderedlist" title="Bullet list"><i class="icon-list-ul"></i></a>
+                      <a class="btn" data-edit="insertorderedlist" title="Number list"><i class="icon-list-ol"></i></a>
+                      <a class="btn" data-edit="outdent" title="Reduce indent (Shift+Tab)"><i class="icon-indent-left"></i></a>
+                      <a class="btn" data-edit="indent" title="Indent (Tab)"><i class="icon-indent-right"></i></a>
+                    </div>
+                    <div class="btn-group">
+                      <a class="btn" data-edit="justifyleft" title="Align Left (Ctrl/Cmd+L)"><i class="icon-align-left"></i></a>
+                      <a class="btn" data-edit="justifycenter" title="Center (Ctrl/Cmd+E)"><i class="icon-align-center"></i></a>
+                      <a class="btn" data-edit="justifyright" title="Align Right (Ctrl/Cmd+R)"><i class="icon-align-right"></i></a>
+                      <a class="btn" data-edit="justifyfull" title="Justify (Ctrl/Cmd+J)"><i class="icon-align-justify"></i></a>
+                    </div>
+                    <div class="btn-group">
+                        <a class="btn dropdown-toggle" data-toggle="dropdown" title="Hyperlink"><i class="icon-link"></i></a>
+                          <div class="dropdown-menu input-append">
+                              <input class="span2" placeholder="URL" type="text" data-edit="createLink"/>
+                              <button class="btn" type="button">Add</button>
+                      </div>
+                      <a class="btn" data-edit="unlink" title="Remove Hyperlink"><i class="icon-cut"></i></a>
+              
+                    </div>
+                    
+                    <!--<div class="btn-group">
+                      <a class="btn" title="Insert picture (or just drag & drop)" id="pictureBtn"><i class="icon-picture"></i></a>
+                      <input type="file" data-role="magic-overlay" data-target="#pictureBtn" data-edit="insertImage" />
+                    </div>-->
+                    <div class="btn-group">
+                      <a class="btn" data-edit="undo" title="Undo (Ctrl/Cmd+Z)"><i class="icon-undo"></i></a>
+                      <a class="btn" data-edit="redo" title="Redo (Ctrl/Cmd+Y)"><i class="icon-repeat"></i></a>
+                    </div>
+                    <div class="btn-group">
+                      
+                      <a class="btn" onclick="saveTextAsFile()" title="Save"><i class="glyphicon glyphicon-bookmark"></i></a>
+                      <!--<label for="genreSelect">Select Genre</label>-->
+                  
+                      <!--<a class="btn" title="Upload" type="file" id="files"><i class="glyphicon glyphicon-upload"></i></a>-->
+                      
+                    </div>
+                    <div class="btn-group">
+                      <input type="file" id="files" />
+                    </div>
+                    <!--  <select class="form-control" id="genreSelect">
+                    <div class="btn-group">                  
+                      <label for="genreSelect">Select Genre</label>
+                      <select class="form-control" id="genreSelect">
+                        <option>Legal</option>
+                        <option>Military</option>
+                        <option>Monsters</option>
+                        <option>Politics</option>
+                        <option>Space</option>
+                        <option>Science</option>
+                        <option>Technology</option>
+                        <option>Religion</option>
+                        </select>
+                    </div>
+                    <div class="btn-group">
+                      <label id="view_count"></label>
+                    </div>-->
+                    <div class="btn-group">
+                      <form id="genreSelect">
+                        <label class="radio-inline">
+                          <input type="radio" name="optradio" value="Legal" checked>Legal
+                        </label>
+                        <label class="radio-inline">
+                          <input type="radio" name="optradio" value="Military">Military
+                        </label>
+                        <label class="radio-inline">
+                          <input type="radio" name="optradio" value="Monsters">Monsters     
+                        </label>
+                        <label class="radio-inline">
+                          <input type="radio" name="optradio" value="Politics">Politics
+                        </label>
+                        <label class="radio-inline">
+                          <input type="radio" name="optradio" value="Space">Space
+                        </label>
+                        <label class="radio-inline">
+                          <input type="radio" name="optradio" value="Science">Science
+                        </label>
+                        <label class="radio-inline">
+                          <input type="radio" name="optradio" value="Technology">Technology
+                        </label>
+                        <label class="radio-inline">
+                          <input type="radio" name="optradio" value="Religion">Religion
+                        </label>
+                      </form>
+                      </div>
+                    <input type="text" data-edit="inserttext" id="voiceBtn" x-webkit-speech="">
                   </div>
-                <div class="btn-group">
-                  <a class="btn dropdown-toggle" data-toggle="dropdown" title="Font Size"><i class="icon-text-height"></i>&nbsp;<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                    <li><a data-edit="fontSize 5"><font size="5">Huge</font></a></li>
-                    <li><a data-edit="fontSize 3"><font size="3">Normal</font></a></li>
-                    <li><a data-edit="fontSize 1"><font size="1">Small</font></a></li>
+    
+                <form id="forms">
+                    <!--<div class="form-group" style="background: white" id="editor" >
+                        <textarea class="form-control" rows="10" ></textarea>
+                    </div>-->
+                    <div id="editor" tabindex="-1">
+                      Go ahead&hellip;
+                      Hello World<!--<select id="hidden_div" name="form_select" >
+                        <option value="0">This is Text 1</option>
+                        <option value="1">This is Text 2</option>
+                     </select>-->
+                     <!--<p id="output"></p>-->
+                     <ul class="list-group list-group-flush" id="hidden_div">
+                      <a class="btn" onmouseover="changeTo(this)" onclick="text_append()" onmouseout="changeBack(this)" id="firstNode" style="box-shadow:0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);" id="Text1">Text 1 Text 1Text 1Text 1Text 1Text 1Text 1Text 1Text 1Text 1Text 1Text 1Text 1</a>
+                      <a class="btn" onmouseover="changeTo(this)"  onclick="text_append()" style="box-shadow:0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);" id="Text2">Text 2Text 2Text 2Text 2Text 2Text 2Text 2Text 2Text 2Text 2Text 2 Text 2Text 2Text 2Text 2</a>
                     </ul>
-                </div>
-                <div class="btn-group">
-                  <a class="btn" data-edit="bold" title="Bold (Ctrl/Cmd+B)"><i class="icon-bold"></i></a>
-                  <a class="btn" data-edit="italic" title="Italic (Ctrl/Cmd+I)"><i class="icon-italic"></i></a>
-                  <a class="btn" data-edit="strikethrough" title="Strikethrough"><i class="icon-strikethrough"></i></a>
-                  <a class="btn" data-edit="underline" title="Underline (Ctrl/Cmd+U)"><i class="icon-underline"></i></a>
-                </div>
-                <div class="btn-group">
-                  <a class="btn" data-edit="insertunorderedlist" title="Bullet list"><i class="icon-list-ul"></i></a>
-                  <a class="btn" data-edit="insertorderedlist" title="Number list"><i class="icon-list-ol"></i></a>
-                  <a class="btn" data-edit="outdent" title="Reduce indent (Shift+Tab)"><i class="icon-indent-left"></i></a>
-                  <a class="btn" data-edit="indent" title="Indent (Tab)"><i class="icon-indent-right"></i></a>
-                </div>
-                <div class="btn-group">
-                  <a class="btn" data-edit="justifyleft" title="Align Left (Ctrl/Cmd+L)"><i class="icon-align-left"></i></a>
-                  <a class="btn" data-edit="justifycenter" title="Center (Ctrl/Cmd+E)"><i class="icon-align-center"></i></a>
-                  <a class="btn" data-edit="justifyright" title="Align Right (Ctrl/Cmd+R)"><i class="icon-align-right"></i></a>
-                  <a class="btn" data-edit="justifyfull" title="Justify (Ctrl/Cmd+J)"><i class="icon-align-justify"></i></a>
-                </div>
-                <div class="btn-group">
-                    <a class="btn dropdown-toggle" data-toggle="dropdown" title="Hyperlink"><i class="icon-link"></i></a>
-                      <div class="dropdown-menu input-append">
-                          <input class="span2" placeholder="URL" type="text" data-edit="createLink"/>
-                          <button class="btn" type="button">Add</button>
-                  </div>
-                  <a class="btn" data-edit="unlink" title="Remove Hyperlink"><i class="icon-cut"></i></a>
-          
-                </div>
-                
-                <div class="btn-group">
-                  <a class="btn" title="Insert picture (or just drag & drop)" id="pictureBtn"><i class="icon-picture"></i></a>
-                  <input type="file" data-role="magic-overlay" data-target="#pictureBtn" data-edit="insertImage" />
-                </div>
-                <div class="btn-group">
-                  <a class="btn" data-edit="undo" title="Undo (Ctrl/Cmd+Z)"><i class="icon-undo"></i></a>
-                  <a class="btn" data-edit="redo" title="Redo (Ctrl/Cmd+Y)"><i class="icon-repeat"></i></a>
-                </div>
-                <div class="btn-group">
-                  <a class="btn" onclick="saveTextAsFile()" title="Save"><i class="glyphicon glyphicon-bookmark"></i></a>
-                </div>
-                <input type="text" data-edit="inserttext" id="voiceBtn" x-webkit-speech="">
-              </div>
-
-            <form id="forms">
-                <div class="form-group">
-                    <label for="genreSelect">Select Genre</label>
-                    <select class="form-control" id="genreSelect">
-                    <option>Legal</option>
-                    <option>Military</option>
-                    <option>Monsters</option>
-                    <option>Politics</option>
-                    <option>Space</option>
-                    <option>Science</option>
-                    <option>Technology</option>
-                    <option>Religion</option>
-                    </select>
-                </div>
-                <!--<div class="form-group" style="background: white" id="editor" >
-                    <textarea class="form-control" rows="10" ></textarea>
-                </div>-->
-                <div id="editor" tabindex="-1">
-                  Go ahead&hellip;
-                  Hello World<!--<select id="hidden_div" name="form_select" >
-                    <option value="0">This is Text 1</option>
-                    <option value="1">This is Text 2</option>
-                 </select>-->
-                 <p id="output"></p>
-                 <ul class="list-group list-group-flush" id="hidden_div">
-                  <li class="list-group-item" onmouseover="changeTo(this)" onclick="text_append()" onmouseout="changeBack(this)" id="firstNode">Text 1</li>
-                  <li class="list-group-item" onclick="text_append()">Text 2</li>
-                </ul>
-                </div>
-                SYNONYMS<br>
-                <p style="display: inline" id="synonym1"></p>
-                <p style="display: inline" id="synonym2"></p>
-            </form>
+                    </div>                    
+                    <div >
+                      <label id="view_count"></label>
+                    </div>
+                </form>
+            </div>
+            </div>
         </div>
-        <hr/>
-    <!-- Empty div to put the count in -->
+            
+    <!-- Empty div to put the count in 
     <div id="view_count">
-    </div>
+    </div>-->
         </div>
     </body>
 </html>
@@ -178,13 +240,15 @@
               var start = this.selectionStart;
               var end = this.selectionEnd;
                 evt.preventDefault();
-                var genre = $('#genreSelect').val();
+                //var genre = $('#genreSelect').val();
+                var genre = document.querySelector('input[name=optradio]:checked').value;
                 //var text = $('#editor').val();
                 view_count();
                 var text = document.getElementById("editor").textContent;
                 //document.getElementById("editor").textContent = document.getElementById("editor").textContent + "Rishabh Khot";
                 var $t = $(evt.currentTarget);
-                $t.addClass('loading').prop("selectionStart");
+                //$t.addClass('loading').prop("selectionStart");
+                $('#editor').append('loading').prop("selectionStart");
                 // Get predicted generated texts
                 $.ajax({
                     type : 'POST',
@@ -286,8 +350,8 @@
          function saveTextAsFile()
             {
                 var textToWrite = document.getElementById('editor').textContent;
-                var textFileAsBlob = new Blob([textToWrite], {type:'text/plain'});
-                var fileNameToSaveAs = "Editor.txt";
+                var textFileAsBlob = new Blob(['\ufeff', textToWrite], {type:'application/msword'});
+                var fileNameToSaveAs = "Editor.doc";
             
                 var downloadLink = document.createElement("a");
                 downloadLink.download = fileNameToSaveAs;
@@ -311,9 +375,37 @@
             }
       </script>
       <script>
-        function changeTo(x) {          
+        document.getElementById("view_count").innerHTML = "Words: 0";
+        var input = document.getElementById("files");
+        input.addEventListener("change", function(e) {
+        var file = e.target.files[0];
+
+        // Only render plain text files
+        if (!file.type === "text/plain")
+          return;
+
+        var reader = new FileReader();
+
+        reader.onload = function(event) {
+          $('#editor').append(event.target.result);
+    };
+
+    reader.readAsText(file);
+});
+     </script>
+      <script>
+        function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+        async function changeTo(x) {          
           //document.querySelector('#editor').setAttribute("#output")
+          
+          $('#editor').append($('<p id="output"></p>'));
+          console.log("Value " + document.getElementById("Text2").value);
           $('#output').append("<P>This is a message").css("opacity", "0.6");
+          await sleep(2000);
+          $('#output').remove();         
+          //$('#output').append("");
           //$("#editor").append("#output");
           //document.getElementById("editor").textContent = document.getElementById("editor").textContent;
          
@@ -338,7 +430,7 @@
           } else if (document.selection && document.selection.type != "Control") {
                 text = document.selection.createRange().text;        
           }
-          console.log("Selected Text "+selectedText);
+          //console.log("Selected Text "+selectedText);
               $.ajax({
                     type : 'POST',
                     url : "{{url_for('synonyms')}}",
@@ -353,4 +445,10 @@
                 });
          });
         </script>
+        <script>
+          function replaceText(id){
+            
+            $("#editor").replace("Microsoft", "W3Schools");
+          }
+          </script>
 {% endblock %}
