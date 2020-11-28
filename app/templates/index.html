@@ -20,11 +20,31 @@
                 overflow-x: hidden;                
                 overflow-y: hidden;
               }
+              
+.cv-spinner {
+  height: 100%;
+  display: flex;
+}
+.spinner {
+  width: 30px;
+  height: 30px;
+  border: 4px #ddd solid;
+  border-top: 4px #2e93e6 solid;
+  border-radius: 50%;
+  animation: sp-anime 0.8s infinite linear;
+  display: flex;
+}
+@keyframes sp-anime {
+  100% { 
+    transform: rotate(360deg); 
+  }
+}
+
               div.loading {
                 background: url(http://www.xiconeditor.com/image/icons/loading.gif) no-repeat;
               }
               #editor {
-	              height:680px;
+	              height:730px;
 	              background-color: white;
 	              border-collapse: separate;
                 border: 1px solid rgb(204, 204, 204);
@@ -87,7 +107,7 @@
             <div class="col-xs-10">
               <div class="hero-unit" style="padding:10px; background-color :#FAFAFA; box-shadow:0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);;width:1200px;">
                 <h3>GENRE EDITOR,<small> {{ user.username }}!</small></h3>
-                <hr/>
+                <hr style="margin-top: -10px;margin-bottom: 0px;"/>
                 <div id="alerts"></div>
                 <div class="btn-toolbar" data-role="editor-toolbar" data-target="#editor">
                     <div class="btn-group">
@@ -248,7 +268,8 @@
                 //document.getElementById("editor").textContent = document.getElementById("editor").textContent + "Rishabh Khot";
                 var $t = $(evt.currentTarget);
                 //$t.addClass('loading').prop("selectionStart");
-                $t.addClass('loading').prop("selectionStart");
+                //$t.addClass('loading').prop("selectionStart");
+                $('#editor').append($('<span class="spinner"></span>'));
                 // Get predicted generated texts
                 $.ajax({
                     type : 'POST',
@@ -257,13 +278,15 @@
                     contentType: 'application/json;charset=utf-8',
                     data : JSON.stringify({'genre': genre, 'text': text}),
                     success: function(res){
-                        
+                      // Uncomment this as soon as th e reponse comes
+                      //$('.spinner').remove();
                     },
                 });
                 var sel = window.getSelection();
                 var range = sel.getRangeAt(0).cloneRange();
                 //console.log("from", range.startOffset, "to", range.endOffset);
                 
+               //$('.spinner').remove();
                 document.getElementById('hidden_div').style.display = 'block';
                 
                 $('#editor').append($('#hidden_div'));
@@ -443,6 +466,8 @@
                         document.getElementById("synonym2").textContent = res.synonyms1;
                     },
                 });
+                
+         console.log("Test Test");
          });
         </script>
         <script>
