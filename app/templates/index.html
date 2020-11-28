@@ -248,7 +248,7 @@
                 //document.getElementById("editor").textContent = document.getElementById("editor").textContent + "Rishabh Khot";
                 var $t = $(evt.currentTarget);
                 //$t.addClass('loading').prop("selectionStart");
-                $('#editor').append('loading').prop("selectionStart");
+                $t.addClass('loading').prop("selectionStart");
                 // Get predicted generated texts
                 $.ajax({
                     type : 'POST',
