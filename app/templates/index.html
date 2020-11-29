@@ -32,7 +32,7 @@
   border-top: 4px #2e93e6 solid;
   border-radius: 50%;
   animation: sp-anime 0.8s infinite linear;
-  display: flex;
+  display: inline-block;
 }
 @keyframes sp-anime {
   100% { 
@@ -221,14 +221,15 @@
                         <textarea class="form-control" rows="10" ></textarea>
                     </div>-->
                     <div id="editor" tabindex="-1">
-                      Go ahead&hellip;
-                      Hello World<!--<select id="hidden_div" name="form_select" >
+                      <p id="tbody">
+                        Go ahead&hellip; Hello World
+                      </p>
+                      <!--<select id="hidden_div" name="form_select" >
                         <option value="0">This is Text 1</option>
                         <option value="1">This is Text 2</option>
                      </select>-->
                      <!--<p id="output"></p>-->
                     <ul class="list-group list-group-flush" id="hidden_div">
-                      
                     </ul>
                     </div>                    
                     <div >
@@ -266,7 +267,7 @@
                 var $t = $(evt.currentTarget);
                 //$t.addClass('loading').prop("selectionStart");
                 //$t.addClass('loading').prop("selectionStart");
-                $('#editor').append($('<span class="spinner"></span>'));
+                $('#tbody').append($('<span class="spinner"></span>'));
                 // Get predicted generated texts
                 $.ajax({
                     type : 'POST',
@@ -277,8 +278,8 @@
                     success: function(res){
                       // Uncomment this as soon as th e reponse comes
                       $('.spinner').remove();
-                      var pred1 = '<a class="btn" onmouseover="changeTo(this)" onclick="text_append()" onmouseout="changeBack(this)" id="firstNode" style="box-shadow:0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);" id="Text1">' + res['text1'] + '</a>'
-                      var pred2 = '<a class="btn" onmouseover="changeTo(this)"  onclick="text_append()" style="box-shadow:0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);" id="Text2">' + res['text2'] + '</a>'
+                      var pred1 = '<a class="btn" onclick="text_append($(\'#Text1\').text())" style="box-shadow:0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);" id="Text1">' + res['text1'] + '</a>'
+                      var pred2 = '<a class="btn"  onclick="text_append($(\'#Text2\').text())" style="box-shadow:0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);" id="Text2">' + res['text2'] + '</a>'
                       $(pred1).appendTo($('#hidden_div'));
                       $(pred2).appendTo($('#hidden_div'));
                     },
@@ -439,11 +440,10 @@
           //document.getElementById('hidden_div').style.display = 'block';
           
         }
-        function text_append(){
-          $("#editor").append("<P>This is a message");
+        function text_append(predText){
+          console.log(predText)
+          $("#tbody").append(predText);
           $('#hidden_div').empty();
-          // $('#Text1').remove();
-          // $('#Text2').remove();
           console.log("Removed!")
           // document.getElementById('hidden_div').style.display = 'none';
         }
