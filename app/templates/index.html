@@ -217,18 +217,11 @@
                   </div>
     
                 <form id="forms">
-                    <!--<div class="form-group" style="background: white" id="editor" >
-                        <textarea class="form-control" rows="10" ></textarea>
-                    </div>-->
                     <div id="editor" tabindex="-1">
                       <p id="tbody">
                         Go ahead&hellip; Hello World
                       </p>
-                      <!--<select id="hidden_div" name="form_select" >
-                        <option value="0">This is Text 1</option>
-                        <option value="1">This is Text 2</option>
-                     </select>-->
-                     <!--<p id="output"></p>-->
+
                     <ul class="list-group list-group-flush" id="hidden_div">
                     </ul>
                     </div>                    
@@ -240,9 +233,6 @@
             </div>
         </div>
             
-    <!-- Empty div to put the count in 
-    <div id="view_count">
-    </div>-->
         </div>
     </body>
 </html>
@@ -250,54 +240,42 @@
 
 
 {% block scripts %}
- 
+    
     <script>
+    // Send prediction request on Alt Press
         // https://stackoverflow.com/a/28084275
         $('#editor').on('keydown', function(evt) {
             if (/*evt.key === 'Tab'*/ evt.altKey) {
-              var start = this.selectionStart;
-              var end = this.selectionEnd;
-                evt.preventDefault();
-                //var genre = $('#genreSelect').val();
-                var genre = document.querySelector('input[name=optradio]:checked').value;
-                //var text = $('#editor').val();
-                view_count();
-                var text = document.getElementById("editor").textContent;
-                //document.getElementById("editor").textContent = document.getElementById("editor").textContent + "Rishabh Khot";
-                var $t = $(evt.currentTarget);
-                //$t.addClass('loading').prop("selectionStart");
-                //$t.addClass('loading').prop("selectionStart");
-                $('#tbody').append($('<span class="spinner"></span>'));
-                // Get predicted generated texts
-                $.ajax({
-                    type : 'POST',
-                    url : "{{url_for('generate')}}",
-                    dataType:'json',
-                    contentType: 'application/json;charset=utf-8',
-                    data : JSON.stringify({'genre': genre, 'text': text}),
-                    success: function(res){
-                      // Uncomment this as soon as th e reponse comes
-                      $('.spinner').remove();
-                      var pred1 = '<a class="btn" onclick="text_append($(\'#Text1\').text())" style="box-shadow:0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);" id="Text1">' + res['text1'] + '</a>'
-                      var pred2 = '<a class="btn"  onclick="text_append($(\'#Text2\').text())" style="box-shadow:0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);" id="Text2">' + res['text2'] + '</a>'
-                      $(pred1).appendTo($('#hidden_div'));
-                      $(pred2).appendTo($('#hidden_div'));
-                    },
-                });
-                var sel = window.getSelection();
-                var range = sel.getRangeAt(0).cloneRange();
-                //console.log("from", range.startOffset, "to", range.endOffset);
-                
-               //$('.spinner').remove();
-                // document.getElementById('hidden_div').style.display = 'block';
-                
-                // $('#editor').append($('#hidden_div'));
-                //document.getElementById('hidden_div').style.position = 'absolute';                
-                //document.getElementById('hidden_div').style.top = range.startOffset+'px';
+              evt.preventDefault();
+
+              var genre = document.querySelector('input[name=optradio]:checked').value;
+              view_count();
+              var text = document.getElementById("editor").textContent;
+              var $t = $(evt.currentTarget);
+
+              $('#tbody').append($('<span class="spinner"></span>'));
+
+              // Get predicted generated texts
+              $.ajax({
+                  type : 'POST',
+                  url : "{{url_for('generate')}}",
+                  dataType:'json',
+                  contentType: 'application/json;charset=utf-8',
+                  data : JSON.stringify({'genre': genre, 'text': text}),
+                  success: function(res){
+                    // Uncomment this as soon as th e reponse comes
+                    $('.spinner').remove();
+                    var pred1 = '<a class="btn" onclick="text_append($(\'#Text1\').text())" style="box-shadow:0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);" id="Text1">' + res['text1'] + '</a>'
+                    var pred2 = '<a class="btn"  onclick="text_append($(\'#Text2\').text())" style="box-shadow:0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);" id="Text2">' + res['text2'] + '</a>'
+                    $(pred1).appendTo($('#hidden_div'));
+                    $(pred2).appendTo($('#hidden_div'));
+                  },
+              });
             }
         });
     </script>
     <script>
+    // Toolbar setup
         $(function(){
           function initToolbarBootstrapBindings() {
             var fonts = ['Serif', 'Sans', 'Arial', 'Arial Black', 'Courier', 
@@ -338,6 +316,7 @@
         });
     </script>
     <script>
+    // Word count
       function view_count () {
 
         // Find html elements.
@@ -360,18 +339,17 @@
         var len = 0;
         for (i = 0 ; i < words.length; i++)
         {
-        if (words[i] != " " && words[i] != ""){
-        len += 1 ;
-
+          if (words[i] != " " && words[i] != ""){
+          len += 1 ;
         }
         }
         if (text != undefined)
         document.getElementById("view_count").innerHTML = "Words: " + len ;
 
-
         }
     </script>
     <script>
+    // Handle text file
          function saveTextAsFile()
             {
                 var textToWrite = document.getElementById('editor').textContent;
@@ -400,56 +378,49 @@
             }
       </script>
       <script>
+      // Upload and read text file
         document.getElementById("view_count").innerHTML = "Words: 0";
         var input = document.getElementById("files");
         input.addEventListener("change", function(e) {
-        var file = e.target.files[0];
+          var file = e.target.files[0];
 
-        // Only render plain text files
-        if (!file.type === "text/plain")
-          return;
+          // Only render plain text files
+          if (!file.type === "text/plain")
+            return;
 
-        var reader = new FileReader();
+          var reader = new FileReader();
 
-        reader.onload = function(event) {
-          $('#editor').append(event.target.result);
-    };
+          reader.onload = function(event) {
+            $('#editor').append(event.target.result);
+          };
 
-    reader.readAsText(file);
-});
-     </script>
+          reader.readAsText(file);
+        });
+      </script>
       <script>
+      // Show message on hover
         function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
+          return new Promise(resolve => setTimeout(resolve, ms));
+        }
         async function changeTo(x) {          
-          //document.querySelector('#editor').setAttribute("#output")
           
           $('#editor').append($('<p id="output"></p>'));
-          console.log("Value " + document.getElementById("Text2").value);
+          // console.log("Value " + document.getElementById("Text2").value);
           $('#output').append("<P>This is a message").css("opacity", "0.6");
           await sleep(2000);
           $('#output').remove();         
-          //$('#output').append("");
-          //$("#editor").append("#output");
-          //document.getElementById("editor").textContent = document.getElementById("editor").textContent;
          
         }
-        
-        function changeBack(x) {
-          //document.getElementById('hidden_div').style.display = 'block';
-          
-        }
+        // Empty prediction buttons and append text
         function text_append(predText){
-          console.log(predText)
+          // console.log(predText)
           $("#tbody").append(predText);
           $('#hidden_div').empty();
-          console.log("Removed!")
-          // document.getElementById('hidden_div').style.display = 'none';
         }
-        </script>
+      </script>
         
-        <script>
+      <script>
+      // Handle text selections and POST requests  
         $('#editor').on('click', function(){
           var selectedText = "Hello";
           if (window.getSelection) {
@@ -458,27 +429,18 @@
           } else if (document.selection && document.selection.type != "Control") {
                 text = document.selection.createRange().text;        
           }
-          //console.log("Selected Text "+selectedText);
-              $.ajax({
-                    type : 'POST',
-                    url : "{{url_for('synonyms')}}",
-                    dataType:'json',
-                    contentType: 'application/json;charset=utf-8',
-                    data : JSON.stringify({'selectedText': selectedText}),
-                    success: function(res){
-                        console.log(res);
-                        document.getElementById("synonym1").textContent = res.synonyms;
-                        document.getElementById("synonym2").textContent = res.synonyms1;
-                    },
-                });
+          $.ajax({
+                type : 'POST',
+                url : "{{url_for('synonyms')}}",
+                dataType:'json',
+                contentType: 'application/json;charset=utf-8',
+                data : JSON.stringify({'selectedText': selectedText}),
+                success: function(res){
+                    document.getElementById("synonym1").textContent = res.synonyms;
+                    document.getElementById("synonym2").textContent = res.synonyms1;
+                },
+            });
                 
-         console.log("Test Test");
          });
-        </script>
-        <script>
-          function replaceText(id){
-            
-            $("#editor").replace("Microsoft", "W3Schools");
-          }
-          </script>
+      </script>
 {% endblock %}
