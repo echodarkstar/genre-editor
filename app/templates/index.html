@@ -81,9 +81,7 @@
                 cursor: pointer;
               }
 
-              #hidden_div {
-                display: none;
-              }
+
               .label {
   color: white;
   padding: 8px;
@@ -229,9 +227,8 @@
                         <option value="1">This is Text 2</option>
                      </select>-->
                      <!--<p id="output"></p>-->
-                     <ul class="list-group list-group-flush" id="hidden_div">
-                      <a class="btn" onmouseover="changeTo(this)" onclick="text_append()" onmouseout="changeBack(this)" id="firstNode" style="box-shadow:0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);" id="Text1">Text 1 Text 1Text 1Text 1Text 1Text 1Text 1Text 1Text 1Text 1Text 1Text 1Text 1</a>
-                      <a class="btn" onmouseover="changeTo(this)"  onclick="text_append()" style="box-shadow:0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);" id="Text2">Text 2Text 2Text 2Text 2Text 2Text 2Text 2Text 2Text 2Text 2Text 2 Text 2Text 2Text 2Text 2</a>
+                    <ul class="list-group list-group-flush" id="hidden_div">
+                      
                     </ul>
                     </div>                    
                     <div >
@@ -279,7 +276,11 @@
                     data : JSON.stringify({'genre': genre, 'text': text}),
                     success: function(res){
                       // Uncomment this as soon as th e reponse comes
-                      //$('.spinner').remove();
+                      $('.spinner').remove();
+                      var pred1 = '<a class="btn" onmouseover="changeTo(this)" onclick="text_append()" onmouseout="changeBack(this)" id="firstNode" style="box-shadow:0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);" id="Text1">' + res['text1'] + '</a>'
+                      var pred2 = '<a class="btn" onmouseover="changeTo(this)"  onclick="text_append()" style="box-shadow:0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);" id="Text2">' + res['text2'] + '</a>'
+                      $(pred1).appendTo($('#hidden_div'));
+                      $(pred2).appendTo($('#hidden_div'));
                     },
                 });
                 var sel = window.getSelection();
@@ -287,9 +288,9 @@
                 //console.log("from", range.startOffset, "to", range.endOffset);
                 
                //$('.spinner').remove();
-                document.getElementById('hidden_div').style.display = 'block';
+                // document.getElementById('hidden_div').style.display = 'block';
                 
-                $('#editor').append($('#hidden_div'));
+                // $('#editor').append($('#hidden_div'));
                 //document.getElementById('hidden_div').style.position = 'absolute';                
                 //document.getElementById('hidden_div').style.top = range.startOffset+'px';
             }
@@ -440,7 +441,11 @@
         }
         function text_append(){
           $("#editor").append("<P>This is a message");
-          document.getElementById('hidden_div').style.display = 'none';
+          $('#hidden_div').empty();
+          // $('#Text1').remove();
+          // $('#Text2').remove();
+          console.log("Removed!")
+          // document.getElementById('hidden_div').style.display = 'none';
         }
         </script>
         

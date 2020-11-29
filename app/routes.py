@@ -64,7 +64,7 @@ def generate():
 
     start = time.time()
     torch.cuda.empty_cache()
-
+    request.json['text'] = request.json['text'].strip()
     logger.info(request.json['genre'])
     logger.info(request.json['text'])
     tokenized_cond_text = tokenizer.encode(tokenizer.bos_token + request.json['text'])
@@ -222,7 +222,7 @@ def generate():
     total_text = [tokenizer.decode(x).replace('<|endoftext|>', '') for x in preds]
     for tot in total_text:
         logger.info(tot)
-    return jsonify({'success':True}), 200, {'ContentType':'application/json'} 
+    return jsonify({'success':True, 'text1':pred_text[0], 'text2':pred_text[1]}), 200, {'ContentType':'application/json'} 
 
 @app.route('/synonyms', methods=['POST'])
 def synonyms():
