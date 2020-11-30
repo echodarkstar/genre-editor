@@ -227,12 +227,13 @@ def generate():
 @app.route('/synonyms', methods=['POST'])
 def synonyms():
     synonyms = []
+    request.json['selectedText'] = request.json['selectedText'].strip()
     if request.json['selectedText']:
         for syn in wordnet.synsets(request.json['selectedText']): 
             for l in syn.lemmas(): 
                 if (l.name().lower() != request.json['selectedText'].lower()) and l.name() not in synonyms:
                     synonyms.append(l.name()) 
-        return jsonify({'success':True, 'synonyms':synonyms[0], 'synonyms1':synonyms[1]}), 200, {'ContentType':'application/json'}
+        return jsonify({'success':True, 'synonyms':synonyms}), 200, {'ContentType':'application/json'}
     print(request.json['selectedText'])
     return jsonify({'success':True, 'synonyms':"", 'synonyms1':""}), 200, {'ContentType':'application/json'} 
 
