@@ -1,90 +1,90 @@
 
 <html>
-    <head>
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <link src="{{ url_for('static', filename='google-code-prettify/prettify.css') }}"></link>                
-      <link src="{{ url_for('static', filename='index.css') }}"></link>   
-      
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-      <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">      
-      <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-responsive.min.css" rel="stylesheet">
-      <link href="http://netdna.bootstrapcdn.com/font-awesome/3.0.2/css/font-awesome.css" rel="stylesheet">  
-      <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
-      <script src="{{ url_for('static', filename='jquery.hotkeys.js') }}"></script>  
-      <script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script>        
-      <script src="{{ url_for('static', filename='google-code-prettify/prettify.js') }}"></script>     
-      <script src="{{ url_for('static', filename='bootstrap-wysiwyg.js') }}" ></script>  
-      <title>{{ title }} - Genre Editor</title>
-      <style>
-              html, body {
-                overflow-x: hidden;                
-                overflow-y: hidden;
-              }
-              
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link src="{{ url_for('static', filename='google-code-prettify/prettify.css') }}"></link>                
+    <link src="{{ url_for('static', filename='index.css') }}"></link>   
+    
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">      
+    <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-responsive.min.css" rel="stylesheet">
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/3.0.2/css/font-awesome.css" rel="stylesheet">  
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+    <script src="{{ url_for('static', filename='jquery.hotkeys.js') }}"></script>  
+    <script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script>        
+    <script src="{{ url_for('static', filename='google-code-prettify/prettify.js') }}"></script>     
+    <script src="{{ url_for('static', filename='bootstrap-wysiwyg.js') }}" ></script>  
+    <title>{{ title }} - Genre Editor</title>
+    <style>
+            html, body {
+              overflow-x: hidden;                
+              overflow-y: hidden;
+            }
+            
 .cv-spinner {
-  height: 100%;
-  display: flex;
+height: 100%;
+display: flex;
 }
 .spinner {
-  width: 30px;
-  height: 30px;
-  border: 4px #ddd solid;
-  border-top: 4px #2e93e6 solid;
-  border-radius: 50%;
-  animation: sp-anime 0.8s infinite linear;
-  display: inline-block;
+width: 30px;
+height: 30px;
+border: 4px #ddd solid;
+border-top: 4px #2e93e6 solid;
+border-radius: 50%;
+animation: sp-anime 0.8s infinite linear;
+display: inline-block;
 }
 @keyframes sp-anime {
-  100% { 
-    transform: rotate(360deg); 
-  }
+100% { 
+  transform: rotate(360deg); 
+}
 }
 
-              div.loading {
-                background: url(http://www.xiconeditor.com/image/icons/loading.gif) no-repeat;
+            div.loading {
+              background: url(http://www.xiconeditor.com/image/icons/loading.gif) no-repeat;
+            }
+            #editor {
+              height:730px;
+              background-color: white;
+              border-collapse: separate;
+              border: 1px solid rgb(204, 204, 204);
+              padding: 4px; 
+              box-sizing: content-box; 
+              -webkit-box-shadow: rgba(0, 0, 0, 0.0745098) 0px 1px 1px 0px inset; 
+              box-shadow: rgba(0, 0, 0, 0.0745098) 0px 1px 1px 0px inset;
+              border-top-right-radius: 3px; border-bottom-right-radius: 3px;
+              border-bottom-left-radius: 3px; border-top-left-radius: 3px;
+              overflow: auto;
+              outline: none;
               }
-              #editor {
-	              height:730px;
-	              background-color: white;
-	              border-collapse: separate;
-                border: 1px solid rgb(204, 204, 204);
-                padding: 4px; 
-	              box-sizing: content-box; 
-	              -webkit-box-shadow: rgba(0, 0, 0, 0.0745098) 0px 1px 1px 0px inset; 
-	              box-shadow: rgba(0, 0, 0, 0.0745098) 0px 1px 1px 0px inset;
-	              border-top-right-radius: 3px; border-bottom-right-radius: 3px;
-	              border-bottom-left-radius: 3px; border-top-left-radius: 3px;
-	              overflow: auto;
-	              outline: none;
-                }
-              #voiceBtn {
-                width: 20px;
-                color: transparent;
-                background-color: transparent;
-                transform: scale(2.0, 2.0);
-                -webkit-transform: scale(2.0, 2.0);
-                -moz-transform: scale(2.0, 2.0);
-                border: transparent;
-                cursor: pointer;
-                box-shadow: none;
-                -webkit-box-shadow: none;
-              }
+            #voiceBtn {
+              width: 20px;
+              color: transparent;
+              background-color: transparent;
+              transform: scale(2.0, 2.0);
+              -webkit-transform: scale(2.0, 2.0);
+              -moz-transform: scale(2.0, 2.0);
+              border: transparent;
+              cursor: pointer;
+              box-shadow: none;
+              -webkit-box-shadow: none;
+            }
 
-              div[data-role="editor-toolbar"] {
-                -webkit-user-select: none;
-                -moz-user-select: none;
-                -ms-user-select: none;
-                user-select: none;
-              }
+            div[data-role="editor-toolbar"] {
+              -webkit-user-select: none;
+              -moz-user-select: none;
+              -ms-user-select: none;
+              user-select: none;
+            }
 
-              .dropdown-menu a {
-                cursor: pointer;
-              }
+            .dropdown-menu a {
+              cursor: pointer;
+            }
 
 
-              .label {
-  color: white;
-  padding: 8px;
+            .label {
+color: white;
+padding: 8px;
 }
 
 .success {background-color: #4CAF50;} /* Green */
@@ -92,289 +92,393 @@
 .warning {background-color: #ff9800;} /* Orange */
 .danger {background-color: #f44336;} /* Red */
 .other {background-color: #e7e7e7; color: black;} /* Gray */
-            </style>
-    </head>
-    <body>
-        <div class="">
-          <div class="row">
-            <div class="col-xs-2" style="padding-top:250px;padding-right:50px;padding-left:70px">
-              <span class="label info">SYNONYMS</span><br><br>
-              <p style="display: inline;padding:5px;box-shadow:0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);" id="synonym1" ></p><br><br>
-              <p style="display: inline;padding:5px;box-shadow:0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);" id="synonym2"></p>
-            </div>
-            <div class="col-xs-10">
-              <div class="hero-unit" style="padding:10px; background-color :#FAFAFA; box-shadow:0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);;width:1200px;">
-                <h3>GENRE EDITOR,<small> {{ user.username }}!</small></h3>
-                <hr style="margin-top: -10px;margin-bottom: 0px;"/>
-                <div id="alerts"></div>
-                <div class="btn-toolbar" data-role="editor-toolbar" data-target="#editor">
-                    <div class="btn-group">
-                      <a class="btn dropdown-toggle" data-toggle="dropdown" title="Font"><i class="icon-font"></i><b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                        </ul>
-                      </div>
-                    <!--<div class="btn-group">
-                      <a class="btn dropdown-toggle" data-toggle="dropdown" title="Font Size"><i class="icon-text-height"></i>&nbsp;<b class="caret"></b></a>
-                        <ul class="dropdown-menu">;
-                        <li><a data-edit="fontSize 5"><font size="5">Huge</font></a></li>
-                        <li><a data-edit="fontSize 3"><font size="3">Normal</font></a></li>
-                        <li><a data-edit="fontSize 1"><font size="1">Small</font></a></li>
-                        </ul>
-                    </div>-->
-                    <div class="btn-group">
-                      <a class="btn" data-edit="bold" title="Bold (Ctrl/Cmd+B)"><i class="icon-bold"></i></a>
-                      <a class="btn" data-edit="italic" title="Italic (Ctrl/Cmd+I)"><i class="icon-italic"></i></a>
-                      <a class="btn" data-edit="strikethrough" title="Strikethrough"><i class="icon-strikethrough"></i></a>
-                      <a class="btn" data-edit="underline" title="Underline (Ctrl/Cmd+U)"><i class="icon-underline"></i></a>
+          </style>
+  </head>
+  <body>
+      <div class="">
+        <div class="row">
+          <div class="col-xs-2" style="padding-top:250px;padding-right:50px;padding-left:70px">
+            <span class="label info">SYNONYMS</span><br><br>
+            <p style="display: inline;padding:5px;box-shadow:0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);" id="synonym1" ></p><br><br>
+            <p style="display: inline;padding:5px;box-shadow:0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);" id="synonym2"></p>
+          </div>
+          <div class="col-xs-10">
+            <div class="hero-unit" style="padding:10px; background-color :#FAFAFA; box-shadow:0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);;width:1200px;">
+              <h3>GENRE EDITOR,<small> {{ user.username }}!</small></h3>
+              <hr style="margin-top: -10px;margin-bottom: 0px;"/>
+              <div id="alerts"></div>
+              <div class="btn-toolbar" data-role="editor-toolbar" data-target="#editor">
+                  <div class="btn-group">
+                    <a class="btn dropdown-toggle" data-toggle="dropdown" title="Font"><i class="icon-font"></i><b class="caret"></b></a>
+                      <ul class="dropdown-menu">
+                      </ul>
                     </div>
-                    <div class="btn-group">
-                      <a class="btn" data-edit="insertunorderedlist" title="Bullet list"><i class="icon-list-ul"></i></a>
-                      <a class="btn" data-edit="insertorderedlist" title="Number list"><i class="icon-list-ol"></i></a>
-                      <a class="btn" data-edit="outdent" title="Reduce indent (Shift+Tab)"><i class="icon-indent-left"></i></a>
-                      <a class="btn" data-edit="indent" title="Indent (Tab)"><i class="icon-indent-right"></i></a>
+                  <!--<div class="btn-group">
+                    <a class="btn dropdown-toggle" data-toggle="dropdown" title="Font Size"><i class="icon-text-height"></i>&nbsp;<b class="caret"></b></a>
+                      <ul class="dropdown-menu">;
+                      <li><a data-edit="fontSize 5"><font size="5">Huge</font></a></li>
+                      <li><a data-edit="fontSize 3"><font size="3">Normal</font></a></li>
+                      <li><a data-edit="fontSize 1"><font size="1">Small</font></a></li>
+                      </ul>
+                  </div>-->
+                  <div class="btn-group">
+                    <a class="btn" data-edit="bold" title="Bold (Ctrl/Cmd+B)"><i class="icon-bold"></i></a>
+                    <a class="btn" data-edit="italic" title="Italic (Ctrl/Cmd+I)"><i class="icon-italic"></i></a>
+                    <a class="btn" data-edit="strikethrough" title="Strikethrough"><i class="icon-strikethrough"></i></a>
+                    <a class="btn" data-edit="underline" title="Underline (Ctrl/Cmd+U)"><i class="icon-underline"></i></a>
+                  </div>
+                  <div class="btn-group">
+                    <a class="btn" data-edit="insertunorderedlist" title="Bullet list"><i class="icon-list-ul"></i></a>
+                    <a class="btn" data-edit="insertorderedlist" title="Number list"><i class="icon-list-ol"></i></a>
+                    <a class="btn" data-edit="outdent" title="Reduce indent (Shift+Tab)"><i class="icon-indent-left"></i></a>
+                    <a class="btn" data-edit="indent" title="Indent (Tab)"><i class="icon-indent-right"></i></a>
+                  </div>
+                  <div class="btn-group">
+                    <a class="btn" data-edit="justifyleft" title="Align Left (Ctrl/Cmd+L)"><i class="icon-align-left"></i></a>
+                    <a class="btn" data-edit="justifycenter" title="Center (Ctrl/Cmd+E)"><i class="icon-align-center"></i></a>
+                    <a class="btn" data-edit="justifyright" title="Align Right (Ctrl/Cmd+R)"><i class="icon-align-right"></i></a>
+                    <a class="btn" data-edit="justifyfull" title="Justify (Ctrl/Cmd+J)"><i class="icon-align-justify"></i></a>
+                  </div>
+                  <div class="btn-group">
+                      <a class="btn dropdown-toggle" data-toggle="dropdown" title="Hyperlink"><i class="icon-link"></i></a>
+                        <div class="dropdown-menu input-append">
+                            <input class="span2" placeholder="URL" type="text" data-edit="createLink"/>
+                            <button class="btn" type="button">Add</button>
                     </div>
-                    <div class="btn-group">
-                      <a class="btn" data-edit="justifyleft" title="Align Left (Ctrl/Cmd+L)"><i class="icon-align-left"></i></a>
-                      <a class="btn" data-edit="justifycenter" title="Center (Ctrl/Cmd+E)"><i class="icon-align-center"></i></a>
-                      <a class="btn" data-edit="justifyright" title="Align Right (Ctrl/Cmd+R)"><i class="icon-align-right"></i></a>
-                      <a class="btn" data-edit="justifyfull" title="Justify (Ctrl/Cmd+J)"><i class="icon-align-justify"></i></a>
-                    </div>
-                    <div class="btn-group">
-                        <a class="btn dropdown-toggle" data-toggle="dropdown" title="Hyperlink"><i class="icon-link"></i></a>
-                          <div class="dropdown-menu input-append">
-                              <input class="span2" placeholder="URL" type="text" data-edit="createLink"/>
-                              <button class="btn" type="button">Add</button>
-                      </div>
-                      <a class="btn" data-edit="unlink" title="Remove Hyperlink"><i class="icon-cut"></i></a>
-              
+                    <a class="btn" data-edit="unlink" title="Remove Hyperlink"><i class="icon-cut"></i></a>
+            
+                  </div>
+                  
+                  <!--<div class="btn-group">
+                    <a class="btn" title="Insert picture (or just drag & drop)" id="pictureBtn"><i class="icon-picture"></i></a>
+                    <input type="file" data-role="magic-overlay" data-target="#pictureBtn" data-edit="insertImage" />
+                  </div>-->
+                  <div class="btn-group">
+                    <a class="btn" data-edit="undo" title="Undo (Ctrl/Cmd+Z)"><i class="icon-undo"></i></a>
+                    <a class="btn" data-edit="redo" title="Redo (Ctrl/Cmd+Y)"><i class="icon-repeat"></i></a>
+                  </div>
+                  <div class="btn-group">
+                    
+                    <a class="btn" onclick="saveTextAsFile()" title="Save"><i class="glyphicon glyphicon-bookmark"></i></a>
+                    <!--<label for="genreSelect">Select Genre</label>-->
+                
+                    <!--<a class="btn" title="Upload" type="file" id="files"><i class="glyphicon glyphicon-upload"></i></a>-->
+                    
+                  </div>
+                  <div class="btn-group">
+                    <input type="file" id="files" />
+                  </div>
+                  <!--  <select class="form-control" id="genreSelect">
+                  <div class="btn-group">                  
+                    <label for="genreSelect">Select Genre</label>
+                    <select class="form-control" id="genreSelect">
+                      <option>Legal</option>
+                      <option>Military</option>
+                      <option>Monsters</option>
+                      <option>Politics</option>
+                      <option>Space</option>
+                      <option>Science</option>
+                      <option>Technology</option>
+                      <option>Religion</option>
+                      </select>
+                  </div>
+                  <div class="btn-group">
+                    <label id="view_count"></label>
+                  </div>-->
+                  <div class="btn-group">
+                    <form id="genreSelect">
+                      <label class="radio-inline">
+                        <input type="radio" name="optradio" value="Legal" checked>Legal
+                      </label>
+                      <label class="radio-inline">
+                        <input type="radio" name="optradio" value="Military">Military
+                      </label>
+                      <label class="radio-inline">
+                        <input type="radio" name="optradio" value="Monsters">Monsters     
+                      </label>
+                      <label class="radio-inline">
+                        <input type="radio" name="optradio" value="Politics">Politics
+                      </label>
+                      <label class="radio-inline">
+                        <input type="radio" name="optradio" value="Space">Space
+                      </label>
+                      <label class="radio-inline">
+                        <input type="radio" name="optradio" value="Science">Science
+                      </label>
+                      <label class="radio-inline">
+                        <input type="radio" name="optradio" value="Technology">Technology
+                      </label>
+                      <label class="radio-inline">
+                        <input type="radio" name="optradio" value="Religion">Religion
+                      </label>
+                    </form>
                     </div>
                     
-                    <!--<div class="btn-group">
-                      <a class="btn" title="Insert picture (or just drag & drop)" id="pictureBtn"><i class="icon-picture"></i></a>
-                      <input type="file" data-role="magic-overlay" data-target="#pictureBtn" data-edit="insertImage" />
-                    </div>-->
                     <div class="btn-group">
-                      <a class="btn" data-edit="undo" title="Undo (Ctrl/Cmd+Z)"><i class="icon-undo"></i></a>
-                      <a class="btn" data-edit="redo" title="Redo (Ctrl/Cmd+Y)"><i class="icon-repeat"></i></a>
-                    </div>
-                    <div class="btn-group">
-                      
-                      <a class="btn" onclick="saveTextAsFile()" title="Save"><i class="glyphicon glyphicon-bookmark"></i></a>
-                      <!--<label for="genreSelect">Select Genre</label>-->
-                  
-                      <!--<a class="btn" title="Upload" type="file" id="files"><i class="glyphicon glyphicon-upload"></i></a>-->
-                      
-                    </div>
-                    <div class="btn-group">
-                      <input type="file" id="files" />
-                    </div>
-                    <!--  <select class="form-control" id="genreSelect">
-                    <div class="btn-group">                  
-                      <label for="genreSelect">Select Genre</label>
-                      <select class="form-control" id="genreSelect">
-                        <option>Legal</option>
-                        <option>Military</option>
-                        <option>Monsters</option>
-                        <option>Politics</option>
-                        <option>Space</option>
-                        <option>Science</option>
-                        <option>Technology</option>
-                        <option>Religion</option>
-                        </select>
-                    </div>
-                    <div class="btn-group">
-                      <label id="view_count"></label>
-                    </div>-->
-                    <div class="btn-group">
-                      <form id="genreSelect">
-                        <label class="radio-inline">
-                          <input type="radio" name="optradio" value="Legal" checked>Legal
-                        </label>
-                        <label class="radio-inline">
-                          <input type="radio" name="optradio" value="Military">Military
-                        </label>
-                        <label class="radio-inline">
-                          <input type="radio" name="optradio" value="Monsters">Monsters     
-                        </label>
-                        <label class="radio-inline">
-                          <input type="radio" name="optradio" value="Politics">Politics
-                        </label>
-                        <label class="radio-inline">
-                          <input type="radio" name="optradio" value="Space">Space
-                        </label>
-                        <label class="radio-inline">
-                          <input type="radio" name="optradio" value="Science">Science
-                        </label>
-                        <label class="radio-inline">
-                          <input type="radio" name="optradio" value="Technology">Technology
-                        </label>
-                        <label class="radio-inline">
-                          <input type="radio" name="optradio" value="Religion">Religion
-                        </label>
-                      </form>
                       </div>
-    		          <div class="btn-group">
-                  </div>
                     <div class="btn-group">
                       <input type="range" min="25" max="50" value="25" id="slider"> 
                       <output id="output"></output>
                     </div>
+                    <div class="btn-group">                    
+                      <a class="btn" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo" title="Help"><i class="glyphicon glyphicon-info-sign"></i></a>
+                    </div>
+                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="overflow: auto;">
+                      
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Help Information</h5>
+                          </div>
+                          <div class="modal-body">
+                            <h5 class="modal-title" id="info">This project focuses on improving the experience of writers and storytellers by complementing text editors with natural language generation capabilities. Currently, Google Docs has an auto-predict feature that suggests possible word completions. Huggingface extended this in “Write with Transformer” by providing multiple possible completions. We propose a text editor with genre based generation that allows the writer to switch between different genres using a hotkey. For example, switching between generative genres of “mystery” and “fantasy” allows the writer to exert some control over the generation process. Additional features include a hotkey for synonym retrieval to improve the writer’s experience. 
+                            </h5>
+                          </div>
+                          <div class="modal-body">
+                            <form>
+                              <div class="btn-group">
+                                <input type="range" min="0" max="1" value="0" step="0.1" id="slider1"> 
+                                <output id="output1"></output>
+                              </div>
+                            </form>
+                          </div>
+                          <div class="modal-body">
+                            <form>
+                              <div class="btn-group">
+                                
+                                <label for="quantity">Number of Iterations - Number of times the model needs to be executed</label>
+                                <label for="quantity">Number of Iterations (between 1 and 5):</label>
+                                <input type="number" id="iterations" name="quantity" min="1" max="5" step="0.1" value="1">
+                              </div>
+                            </form>
+                          </div>
+                          <div class="modal-body">
+                            <form>
+                              <div class="btn-group">
+                                <label for="quantity">Top K:</label>
+                                <input type="number" id="topk" name="quantity" min="1" max="5" step="0.1" value="1">
+                              </div>
+                            </form>
+                          </div>
+                          <div class="modal-body">
+                            <form>
+                              <div class="btn-group">
+                                <label for="quantity">Grad Length:</label>
+                                <input type="number" id="gradl" name="quantity" min="1" max="5" step="0.1" value="1">
+                              </div>
+                            </form>
+                          </div>
+                          <div class="modal-body">
+                            <form>
+                              <div class="btn-group">
+                                <label for="quantity">Horizon Length:</label>
+                                <input type="number" id="horil" name="quantity" min="1" max="5" step="0.1" value="1">
+                              </div>
+                            </form>
+                          </div>
+                          <div class="modal-body">
+                            <form>
+                              <div class="btn-group">
+                                <label for="quantity">Window Length:</label>
+                                <input type="number" id="windl" name="quantity" min="1" max="5" step="0.1" value="1">
+                              </div>
+                            </form>
+                          </div>
+                          <div class="modal-body">
+                            <form>
+                              <div class="btn-group">
+                                <label for="quantity">Gamma:</label>
+                                <input type="number" id="gamma" name="quantity" min="1" max="5" step="0.1" value="1">
+                              </div>
+                            </form>
+                          </div>
+                          <div class="modal-body">
+                            <form>
+                              <div class="btn-group">
+                                <label for="quantity">GM Scale:</label>
+                                <input type="number" id="gms" name="quantity" min="1" max="5" step="0.1" value="1">
+                              </div>
+                            </form>
+                          </div>
+                          <div class="modal-body">
+                            <form>
+                              <div class="btn-group">
+                                <label for="quantity">KL Scale:</label>
+                                <input type="number" id="kls" name="quantity" min="1" max="5" step="0.1" value="1">
+                              </div>
+                            </form>
+                          </div>
+                          <div class="modal-body">
+                            <form>
+                              <div class="btn-group">
+                                <label for="quantity">Repition Penality:</label>
+                                <input type="number" id="rep" name="quantity" min="1" max="5" step="0.1" value="1">
+                              </div>
+                            </form>
+                          </div>
+                          
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                          </div>
+                        </div>
+                      
+                    </div>
                   <input type="text" data-edit="inserttext" id="voiceBtn" x-webkit-speech="">
                 </div>
-                <form id="forms">
-                  <div id="editor" tabindex="-1">
-                    <p id="tbody">
-                      Go ahead&hellip; Hello World
-                    </p>
-                  <ul class="list-group list-group-flush" id="hidden_div">
-                  </ul>
-                  </div>                    
-                  <div >
-                    <label id="view_count"></label>
-                  </div>
-                </form>
-            </div>
-            </div>
-        </div>
-            
-        </div>
-    </body>
+  
+              <form id="forms">
+                <div id="editor" tabindex="-1">
+                  <p id="tbody">
+                    Go ahead&hellip; Hello World
+                  </p>
+                <ul class="list-group list-group-flush" id="hidden_div">
+                </ul>
+                </div>                    
+                <div >
+                  <label id="view_count"></label>
+                </div>
+              </form>
+          </div>
+          </div>
+      </div>
+          
+      </div>
+  </body>
 </html>
 
 {% block scripts %}
-    <script>
-      // Toolbar setup
-      $(function(){
-        function initToolbarBootstrapBindings() {
-          var fonts = ['Serif', 'Sans', 'Arial', 'Arial Black', 'Courier', 
-                'Courier New', 'Comic Sans MS', 'Helvetica', 'Impact', 'Lucida Grande', 'Lucida Sans', 'Tahoma', 'Times',
-                'Times New Roman', 'Verdana'],
-                fontTarget = $('[title=Font]').siblings('.dropdown-menu');
-          $.each(fonts, function (idx, fontName) {
-              fontTarget.append($('<li><a data-edit="fontName ' + fontName +'" style="font-family:\''+ fontName +'\'">'+fontName + '</a></li>'));
-          });
-          $('a[title]').tooltip({container:'body'});
-            $('.dropdown-menu input').click(function() {return false;})
-                .change(function () {$(this).parent('.dropdown-menu').siblings('.dropdown-toggle').dropdown('toggle');})
-            .keydown('esc', function () {this.value='';$(this).change();});
-    
-          $('[data-role=magic-overlay]').each(function () { 
-            var overlay = $(this), target = $(overlay.data('target')); 
-            overlay.css('opacity', 0).css('position', 'absolute').offset(target.offset()).width(target.outerWidth()).height(target.outerHeight());
-          });
-          if ("onwebkitspeechchange"  in document.createElement("input")) {
-            var editorOffset = $('#editor').offset();
-            $('#voiceBtn').css('position','absolute').offset({top: editorOffset.top, left: editorOffset.left+$('#editor').innerWidth()-35});
-          } else {
-            $('#voiceBtn').hide();
+  <script>
+    // Toolbar setup
+    $(function(){
+      function initToolbarBootstrapBindings() {
+        var fonts = ['Serif', 'Sans', 'Arial', 'Arial Black', 'Courier', 
+              'Courier New', 'Comic Sans MS', 'Helvetica', 'Impact', 'Lucida Grande', 'Lucida Sans', 'Tahoma', 'Times',
+              'Times New Roman', 'Verdana'],
+              fontTarget = $('[title=Font]').siblings('.dropdown-menu');
+        $.each(fonts, function (idx, fontName) {
+            fontTarget.append($('<li><a data-edit="fontName ' + fontName +'" style="font-family:\''+ fontName +'\'">'+fontName + '</a></li>'));
+        });
+        $('a[title]').tooltip({container:'body'});
+          $('.dropdown-menu input').click(function() {return false;})
+              .change(function () {$(this).parent('.dropdown-menu').siblings('.dropdown-toggle').dropdown('toggle');})
+          .keydown('esc', function () {this.value='';$(this).change();});
+  
+        $('[data-role=magic-overlay]').each(function () { 
+          var overlay = $(this), target = $(overlay.data('target')); 
+          overlay.css('opacity', 0).css('position', 'absolute').offset(target.offset()).width(target.outerWidth()).height(target.outerHeight());
+        });
+        if ("onwebkitspeechchange"  in document.createElement("input")) {
+          var editorOffset = $('#editor').offset();
+          $('#voiceBtn').css('position','absolute').offset({top: editorOffset.top, left: editorOffset.left+$('#editor').innerWidth()-35});
+        } else {
+          $('#voiceBtn').hide();
+        }
+      };
+      function showErrorAlert (reason, detail) {
+          var msg='';
+          if (reason==='unsupported-file-type') { msg = "Unsupported format " +detail; }
+          else {
+              console.log("error uploading file", reason, detail);
           }
-        };
-        function showErrorAlert (reason, detail) {
-            var msg='';
-            if (reason==='unsupported-file-type') { msg = "Unsupported format " +detail; }
-            else {
-                console.log("error uploading file", reason, detail);
-            }
-            $('<div class="alert"> <button type="button" class="close" data-dismiss="alert">&times;</button>'+ 
-              '<strong>File upload error</strong> '+msg+' </div>').prependTo('#alerts');
-        };
-        initToolbarBootstrapBindings();  
-        $('#editor').wysiwyg({ fileUploadError: showErrorAlert} );
-        window.prettyPrint && prettyPrint();
-      });
-    </script>
-    <script>
-      // Word count
-      function view_count () {
-        // Find html elements.
-        var textArea = document.getElementById('editor');
-        var div = document.getElementById('view_count');
-        //var text = $('#editor').val();
-        var text = document.getElementById("editor").textContent;
-        // Put the text in a variable so we can manipulate it.
-        //remove whitespace before and after end of text
-        text = text.replace(/(^\s*)|(\s*$)/gi,"");
-        // replace newline if it occurs at least once with single whitespace
-        text = text.replace(/\n{1,}/gi," ");
-        // replace whitespace if it occurs at least twice with single whitespace
-        text = text.replace(/\s{2,}/gi," ");
+          $('<div class="alert"> <button type="button" class="close" data-dismiss="alert">&times;</button>'+ 
+            '<strong>File upload error</strong> '+msg+' </div>').prependTo('#alerts');
+      };
+      initToolbarBootstrapBindings();  
+      $('#editor').wysiwyg({ fileUploadError: showErrorAlert} );
+      window.prettyPrint && prettyPrint();
+    });
+  </script>
+  <script>
+    // Word count
+    function view_count () {
+      // Find html elements.
+      var textArea = document.getElementById('editor');
+      var div = document.getElementById('view_count');
+      //var text = $('#editor').val();
+      var text = document.getElementById("editor").textContent;
+      // Put the text in a variable so we can manipulate it.
+      //remove whitespace before and after end of text
+      text = text.replace(/(^\s*)|(\s*$)/gi,"");
+      // replace newline if it occurs at least once with single whitespace
+      text = text.replace(/\n{1,}/gi," ");
+      // replace whitespace if it occurs at least twice with single whitespace
+      text = text.replace(/\s{2,}/gi," ");
 
-        var words = text.split(" ");
-        var len = 0;
-        for (i = 0 ; i < words.length; i++)
-        {
-          if (words[i] != " " && words[i] != ""){
-            len += 1 ;
-          }
-        }
-        if (text != undefined)
-        document.getElementById("view_count").innerHTML = "Words: " + len ;
-        }
-    </script>
-    <script>
-      // Handle text file
-      function saveTextAsFile()
+      var words = text.split(" ");
+      var len = 0;
+      for (i = 0 ; i < words.length; i++)
       {
-        var textToWrite = document.getElementById('editor').textContent;
-        var textFileAsBlob = new Blob(['\ufeff', textToWrite], {type:'application/msword'});
-        var fileNameToSaveAs = "Editor.doc";
-    
-        var downloadLink = document.createElement("a");
-        downloadLink.download = fileNameToSaveAs;
-        downloadLink.innerHTML = "Download File";
-        if (window.webkitURL != null)
-        {
-            // Chrome allows the link to be clicked
-            // without actually adding it to the DOM.
-            downloadLink.href = window.webkitURL.createObjectURL(textFileAsBlob);
+        if (words[i] != " " && words[i] != ""){
+          len += 1 ;
         }
-        else
-        {
-            // Firefox requires the link to be added to the DOM
-            // before it can be clicked.
-            downloadLink.href = window.URL.createObjectURL(textFileAsBlob);
-            downloadLink.onclick = destroyClickedElement;
-            downloadLink.style.display = "none";
-            document.body.appendChild(downloadLink);
-        }            
-        downloadLink.click();
       }
-    </script>
-    <script>
-      // Upload and read text file
-      document.getElementById("view_count").innerHTML = "Words: 0";
-      var input = document.getElementById("files");
-      input.addEventListener("change", function(e) {
-        var file = e.target.files[0];
-
-        // Only render plain text files
-        if (!file.type === "text/plain")
-          return;
-
-        var reader = new FileReader();
-
-        reader.onload = function(event) {
-          $('#editor').append(event.target.result);
-        };
-
-        reader.readAsText(file);
-      });
-    </script>
-    <script>
-      // Show message on hover
-      function sleep(ms) {
-        return new Promise(resolve => setTimeout(resolve, ms));
+      if (text != undefined)
+      document.getElementById("view_count").innerHTML = "Words: " + len ;
       }
-      async function changeTo(x) {          
-        
-        $('#editor').append($('<p id="output"></p>'));
-        // console.log("Value " + document.getElementById("Text2").value);
-        $('#output').append("<P>This is a message").css("opacity", "0.6");
-        await sleep(2000);
-        $('#output').remove();         
-        
+  </script>
+  <script>
+    // Handle text file
+    function saveTextAsFile()
+    {
+      var textToWrite = document.getElementById('editor').textContent;
+      var textFileAsBlob = new Blob(['\ufeff', textToWrite], {type:'application/msword'});
+      var fileNameToSaveAs = "Editor.doc";
+  
+      var downloadLink = document.createElement("a");
+      downloadLink.download = fileNameToSaveAs;
+      downloadLink.innerHTML = "Download File";
+      if (window.webkitURL != null)
+      {
+          // Chrome allows the link to be clicked
+          // without actually adding it to the DOM.
+          downloadLink.href = window.webkitURL.createObjectURL(textFileAsBlob);
       }
-     // Empty prediction buttons and append text
+      else
+      {
+          // Firefox requires the link to be added to the DOM
+          // before it can be clicked.
+          downloadLink.href = window.URL.createObjectURL(textFileAsBlob);
+          downloadLink.onclick = destroyClickedElement;
+          downloadLink.style.display = "none";
+          document.body.appendChild(downloadLink);
+      }            
+      downloadLink.click();
+    }
+  </script>
+  <script>
+    // Upload and read text file
+    document.getElementById("view_count").innerHTML = "Words: 0";
+    var input = document.getElementById("files");
+    input.addEventListener("change", function(e) {
+      var file = e.target.files[0];
+
+      // Only render plain text files
+      if (!file.type === "text/plain")
+        return;
+
+      var reader = new FileReader();
+
+      reader.onload = function(event) {
+        $('#editor').append(event.target.result);
+      };
+
+      reader.readAsText(file);
+    });
+  </script>
+  <script>
+    // Show message on hover
+    function sleep(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+    }
+    async function changeTo(x) {          
+      
+      $('#editor').append($('<p id="output"></p>'));
+      // console.log("Value " + document.getElementById("Text2").value);
+      $('#output').append("<P>This is a message").css("opacity", "0.6");
+      await sleep(2000);
+      $('#output').remove();         
+      
+    }
+    // Empty prediction buttons and append text
     function text_append(predText){
       // Needs to be updated for generic postion of words
       $('#hidden_div').empty();
@@ -394,88 +498,79 @@
       //document.getElementById("tbody").innerText = finalText;
       //$("#tbody").append(predText);
     }
-    </script>
-    <script>
-      // Handle text selections and POST requests
-      var selectedText = "";
-      
-      $('#editor').on('click', function(){
+  </script>
+  <script>
+    // Handle text selections and POST requests
+    var selectedText = "";
+    
+    $('#editor').on('click', function(){
+      if (window.getSelection) {
+          selectedText = window.getSelection().toString();  
+      } else if (document.selection && document.selection.type != "Control") {
+          selectedText = document.selection.createRange().text;
+      }
+      var values = selectedText.split(' ').filter(function(v){return v!==''});
+      console.log(values)
+      if (values.length == 1) {
+        console.log("SYN request");
+        $.ajax({
+            type : 'POST',
+            url : "{{url_for('synonyms')}}",
+            dataType:'json',
+            contentType: 'application/json;charset=utf-8',
+            data : JSON.stringify({'selectedText': selectedText}),
+            success: function(res){
+                document.getElementById("synonym1").textContent = res.synonyms;
+                document.getElementById("synonym2").textContent = res.synonyms1;
+            },
+        });
+      }
+    });
+        
+    $('#editor').on('keydown', function(evt) {
+      // Send prediction request on Alt Press
+      // https://stackoverflow.com/a/28084275
+      if (/*evt.key === 'Tab'*/ evt.altKey) {
+        $('#hidden_div').empty();
         if (window.getSelection) {
-            selectedText = window.getSelection().toString();  
+          selectedText = window.getSelection().toString();  
         } else if (document.selection && document.selection.type != "Control") {
-            selectedText = document.selection.createRange().text;
+          selectedText = document.selection.createRange().text;
         }
         var values = selectedText.split(' ').filter(function(v){return v!==''});
-        console.log(values)
-        if (values.length == 1) {
-          console.log("SYN request");
+        if (values.length > 1) {
+          evt.preventDefault();
+          console.log("Pressed Alt");
+          var genre = document.querySelector('input[name=optradio]:checked').value;
+          view_count();
+          var text = document.getElementById("editor").textContent;
+          var $t = $(evt.currentTarget);
+
+          $('#tbody').append($('<span class="spinner"></span>'));
+          console.log("POST enter");
+          // Get predicted generated texts
           $.ajax({
               type : 'POST',
-              url : "{{url_for('synonyms')}}",
+              url : "{{url_for('generate')}}",
               dataType:'json',
               contentType: 'application/json;charset=utf-8',
-              data : JSON.stringify({'selectedText': selectedText}),
+              data : JSON.stringify({'genre': genre, 'text': selectedText}),
               success: function(res){
-                  document.getElementById("synonym1").textContent = res.synonyms;
-                  document.getElementById("synonym2").textContent = res.synonyms1;
+                // Uncomment this as soon as th e reponse comes
+                console.log("Text :" + selectedText);
+                console.log("POST exit");
+                $('.spinner').remove();
+                var pred1 = '<a class="btn" onclick="text_append($(\'#Text1\').text())" style="box-shadow:0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);" id="Text1">' + res['text1'] + '</a>'
+                var pred2 = '<a class="btn"  onclick="text_append($(\'#Text2\').text())" style="box-shadow:0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);" id="Text2">' + res['text2'] + '</a>'
+                $(pred1).appendTo($('#hidden_div'));
+                $(pred2).appendTo($('#hidden_div'));
               },
           });
         }
-      });
-          
-      $('#editor').on('keydown', function(evt) {
-        // Send prediction request on Alt Press
-        // https://stackoverflow.com/a/28084275
-        if (/*evt.key === 'Tab'*/ evt.altKey) {
-          $('#hidden_div').empty();
-          if (window.getSelection) {
-            selectedText = window.getSelection().toString();  
-          } else if (document.selection && document.selection.type != "Control") {
-            selectedText = document.selection.createRange().text;
-          }
-          var values = selectedText.split(' ').filter(function(v){return v!==''});
-          if (values.length > 1) {
-            evt.preventDefault();
-            console.log("Pressed Alt");
-            var genre = document.querySelector('input[name=optradio]:checked').value;
-            view_count();
-            var text = document.getElementById("editor").textContent;
-            var $t = $(evt.currentTarget);
-
-            $('#tbody').append($('<span class="spinner"></span>'));
-            console.log("POST enter");
-            // Get predicted generated texts
-            $.when(
-              $.ajax({
-                type : 'POST',
-                url : "{{url_for('generate')}}",
-                dataType:'json',
-                contentType: 'application/json;charset=utf-8',
-                data : JSON.stringify({'genre': genre, 'text': selectedText}),
-                success: function(res){
-                  var pred1 = '<a class="btn" onclick="text_append($(\'#Text1\').text())" style="box-shadow:0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);" id="Text1">' + res['text'] + '</a>'
-                  $(pred1).appendTo($('#hidden_div'));
-                },
-              }),
-              $.ajax({
-                  type : 'POST',
-                  url : "{{url_for('generate')}}",
-                  dataType:'json',
-                  contentType: 'application/json;charset=utf-8',
-                  data : JSON.stringify({'genre': genre, 'text': selectedText}),
-                  success: function(res){
-                    var pred2 = '<a class="btn"  onclick="text_append($(\'#Text2\').text())" style="box-shadow:0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);" id="Text2">' + res['text'] + '</a>'
-                    $(pred2).appendTo($('#hidden_div'));
-                  },
-              })
-              ).then(function (resp1, resp2) {
-                $('.spinner').remove();
-              })
-          }
-        };
-      });        
-    </script>
- <script>
+      };
+    });        
+  </script>
+  <script>
     $('#editor').keydown(function(e) {
     // trap the return key being pressed
     if (e.keyCode == 13) {
@@ -489,13 +584,26 @@
     </script>
     <script>
       document.getElementById('output').innerHTML = "No. of Words 25"; 
+      
+      document.getElementById('output1').innerHTML = "No. of Words 25"; 
       document.getElementById("slider").oninput = function() {
     myFunction()
+};
+document.getElementById("slider1").oninput = function() {
+    myFunction1()
 };
      function myFunction() {
    var val = document.getElementById("slider").value //gets the oninput value
    document.getElementById('output').innerHTML = "No. of Words " + val //displays this value to the html page
    console.log(val)
+}
+function myFunction1() {
+   var val = document.getElementById("slider1").value //gets the oninput value
+   document.getElementById('output1').innerHTML = "No. of Words " + val //displays this value to the html page
+   console.log("Iterations "+document.getElementById("iterations").value);
+   console.log("Iterations "+document.getElementById("rep").value);
+   console.log("Iterations "+document.getElementById("gamma").value);
+   console.log("Iterations "+document.getElementById("kls").value);
 }
       </script>
 {% endblock %}
