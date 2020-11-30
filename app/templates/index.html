@@ -217,17 +217,16 @@
                   </div>
     
                 <form id="forms">
-                    <div id="editor" tabindex="-1">
-                      <p id="tbody">
-                        Go ahead&hellip; Hello World
-                      </p>
-
-                    <ul class="list-group list-group-flush" id="hidden_div">
-                    </ul>
-                    </div>                    
-                    <div >
-                      <label id="view_count"></label>
-                    </div>
+                  <div id="editor" tabindex="-1">
+                    <p id="tbody">
+                      Go ahead&hellip; Hello World
+                    </p>
+                  <ul class="list-group list-group-flush" id="hidden_div">
+                  </ul>
+                  </div>                    
+                  <div >
+                    <label id="view_count"></label>
+                  </div>
                 </form>
             </div>
             </div>
@@ -237,97 +236,57 @@
     </body>
 </html>
 
-
-
 {% block scripts %}
+    <script>
+      // Toolbar setup
+      $(function(){
+        function initToolbarBootstrapBindings() {
+          var fonts = ['Serif', 'Sans', 'Arial', 'Arial Black', 'Courier', 
+                'Courier New', 'Comic Sans MS', 'Helvetica', 'Impact', 'Lucida Grande', 'Lucida Sans', 'Tahoma', 'Times',
+                'Times New Roman', 'Verdana'],
+                fontTarget = $('[title=Font]').siblings('.dropdown-menu');
+          $.each(fonts, function (idx, fontName) {
+              fontTarget.append($('<li><a data-edit="fontName ' + fontName +'" style="font-family:\''+ fontName +'\'">'+fontName + '</a></li>'));
+          });
+          $('a[title]').tooltip({container:'body'});
+            $('.dropdown-menu input').click(function() {return false;})
+                .change(function () {$(this).parent('.dropdown-menu').siblings('.dropdown-toggle').dropdown('toggle');})
+            .keydown('esc', function () {this.value='';$(this).change();});
     
-    <script>
-    // Send prediction request on Alt Press
-        // https://stackoverflow.com/a/28084275
-        $('#editor').on('keydown', function(evt) {
-            if (/*evt.key === 'Tab'*/ evt.altKey) {
-              evt.preventDefault();
-
-              var genre = document.querySelector('input[name=optradio]:checked').value;
-              view_count();
-              var text = document.getElementById("editor").textContent;
-              var $t = $(evt.currentTarget);
-
-              $('#tbody').append($('<span class="spinner"></span>'));
-
-              // Get predicted generated texts
-              $.ajax({
-                  type : 'POST',
-                  url : "{{url_for('generate')}}",
-                  dataType:'json',
-                  contentType: 'application/json;charset=utf-8',
-                  data : JSON.stringify({'genre': genre, 'text': text}),
-                  success: function(res){
-                    // Uncomment this as soon as th e reponse comes
-                    $('.spinner').remove();
-                    var pred1 = '<a class="btn" onclick="text_append($(\'#Text1\').text())" style="box-shadow:0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);" id="Text1">' + res['text1'] + '</a>'
-                    var pred2 = '<a class="btn"  onclick="text_append($(\'#Text2\').text())" style="box-shadow:0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);" id="Text2">' + res['text2'] + '</a>'
-                    $(pred1).appendTo($('#hidden_div'));
-                    $(pred2).appendTo($('#hidden_div'));
-                  },
-              });
+          $('[data-role=magic-overlay]').each(function () { 
+            var overlay = $(this), target = $(overlay.data('target')); 
+            overlay.css('opacity', 0).css('position', 'absolute').offset(target.offset()).width(target.outerWidth()).height(target.outerHeight());
+          });
+          if ("onwebkitspeechchange"  in document.createElement("input")) {
+            var editorOffset = $('#editor').offset();
+            $('#voiceBtn').css('position','absolute').offset({top: editorOffset.top, left: editorOffset.left+$('#editor').innerWidth()-35});
+          } else {
+            $('#voiceBtn').hide();
+          }
+        };
+        function showErrorAlert (reason, detail) {
+            var msg='';
+            if (reason==='unsupported-file-type') { msg = "Unsupported format " +detail; }
+            else {
+                console.log("error uploading file", reason, detail);
             }
-        });
+            $('<div class="alert"> <button type="button" class="close" data-dismiss="alert">&times;</button>'+ 
+              '<strong>File upload error</strong> '+msg+' </div>').prependTo('#alerts');
+        };
+        initToolbarBootstrapBindings();  
+        $('#editor').wysiwyg({ fileUploadError: showErrorAlert} );
+        window.prettyPrint && prettyPrint();
+      });
     </script>
     <script>
-    // Toolbar setup
-        $(function(){
-          function initToolbarBootstrapBindings() {
-            var fonts = ['Serif', 'Sans', 'Arial', 'Arial Black', 'Courier', 
-                  'Courier New', 'Comic Sans MS', 'Helvetica', 'Impact', 'Lucida Grande', 'Lucida Sans', 'Tahoma', 'Times',
-                  'Times New Roman', 'Verdana'],
-                  fontTarget = $('[title=Font]').siblings('.dropdown-menu');
-            $.each(fonts, function (idx, fontName) {
-                fontTarget.append($('<li><a data-edit="fontName ' + fontName +'" style="font-family:\''+ fontName +'\'">'+fontName + '</a></li>'));
-            });
-            $('a[title]').tooltip({container:'body'});
-              $('.dropdown-menu input').click(function() {return false;})
-                  .change(function () {$(this).parent('.dropdown-menu').siblings('.dropdown-toggle').dropdown('toggle');})
-              .keydown('esc', function () {this.value='';$(this).change();});
-      
-            $('[data-role=magic-overlay]').each(function () { 
-              var overlay = $(this), target = $(overlay.data('target')); 
-              overlay.css('opacity', 0).css('position', 'absolute').offset(target.offset()).width(target.outerWidth()).height(target.outerHeight());
-            });
-            if ("onwebkitspeechchange"  in document.createElement("input")) {
-              var editorOffset = $('#editor').offset();
-              $('#voiceBtn').css('position','absolute').offset({top: editorOffset.top, left: editorOffset.left+$('#editor').innerWidth()-35});
-            } else {
-              $('#voiceBtn').hide();
-            }
-          };
-          function showErrorAlert (reason, detail) {
-              var msg='';
-              if (reason==='unsupported-file-type') { msg = "Unsupported format " +detail; }
-              else {
-                  console.log("error uploading file", reason, detail);
-              }
-              $('<div class="alert"> <button type="button" class="close" data-dismiss="alert">&times;</button>'+ 
-               '<strong>File upload error</strong> '+msg+' </div>').prependTo('#alerts');
-          };
-          initToolbarBootstrapBindings();  
-          $('#editor').wysiwyg({ fileUploadError: showErrorAlert} );
-          window.prettyPrint && prettyPrint();
-        });
-    </script>
-    <script>
-    // Word count
+      // Word count
       function view_count () {
-
         // Find html elements.
         var textArea = document.getElementById('editor');
         var div = document.getElementById('view_count');
         //var text = $('#editor').val();
         var text = document.getElementById("editor").textContent;
         // Put the text in a variable so we can manipulate it.
-
-
-
         //remove whitespace before and after end of text
         text = text.replace(/(^\s*)|(\s*$)/gi,"");
         // replace newline if it occurs at least once with single whitespace
@@ -340,107 +299,153 @@
         for (i = 0 ; i < words.length; i++)
         {
           if (words[i] != " " && words[i] != ""){
-          len += 1 ;
-        }
+            len += 1 ;
+          }
         }
         if (text != undefined)
         document.getElementById("view_count").innerHTML = "Words: " + len ;
-
         }
     </script>
     <script>
-    // Handle text file
-         function saveTextAsFile()
-            {
-                var textToWrite = document.getElementById('editor').textContent;
-                var textFileAsBlob = new Blob(['\ufeff', textToWrite], {type:'application/msword'});
-                var fileNameToSaveAs = "Editor.doc";
-            
-                var downloadLink = document.createElement("a");
-                downloadLink.download = fileNameToSaveAs;
-                downloadLink.innerHTML = "Download File";
-                if (window.webkitURL != null)
-                {
-                    // Chrome allows the link to be clicked
-                    // without actually adding it to the DOM.
-                    downloadLink.href = window.webkitURL.createObjectURL(textFileAsBlob);
-                }
-                else
-                {
-                    // Firefox requires the link to be added to the DOM
-                    // before it can be clicked.
-                    downloadLink.href = window.URL.createObjectURL(textFileAsBlob);
-                    downloadLink.onclick = destroyClickedElement;
-                    downloadLink.style.display = "none";
-                    document.body.appendChild(downloadLink);
-                }            
-                downloadLink.click();
-            }
-      </script>
-      <script>
+      // Handle text file
+      function saveTextAsFile()
+      {
+        var textToWrite = document.getElementById('editor').textContent;
+        var textFileAsBlob = new Blob(['\ufeff', textToWrite], {type:'application/msword'});
+        var fileNameToSaveAs = "Editor.doc";
+    
+        var downloadLink = document.createElement("a");
+        downloadLink.download = fileNameToSaveAs;
+        downloadLink.innerHTML = "Download File";
+        if (window.webkitURL != null)
+        {
+            // Chrome allows the link to be clicked
+            // without actually adding it to the DOM.
+            downloadLink.href = window.webkitURL.createObjectURL(textFileAsBlob);
+        }
+        else
+        {
+            // Firefox requires the link to be added to the DOM
+            // before it can be clicked.
+            downloadLink.href = window.URL.createObjectURL(textFileAsBlob);
+            downloadLink.onclick = destroyClickedElement;
+            downloadLink.style.display = "none";
+            document.body.appendChild(downloadLink);
+        }            
+        downloadLink.click();
+      }
+    </script>
+    <script>
       // Upload and read text file
-        document.getElementById("view_count").innerHTML = "Words: 0";
-        var input = document.getElementById("files");
-        input.addEventListener("change", function(e) {
-          var file = e.target.files[0];
+      document.getElementById("view_count").innerHTML = "Words: 0";
+      var input = document.getElementById("files");
+      input.addEventListener("change", function(e) {
+        var file = e.target.files[0];
 
-          // Only render plain text files
-          if (!file.type === "text/plain")
-            return;
+        // Only render plain text files
+        if (!file.type === "text/plain")
+          return;
 
-          var reader = new FileReader();
+        var reader = new FileReader();
 
-          reader.onload = function(event) {
-            $('#editor').append(event.target.result);
-          };
+        reader.onload = function(event) {
+          $('#editor').append(event.target.result);
+        };
 
-          reader.readAsText(file);
-        });
-      </script>
-      <script>
+        reader.readAsText(file);
+      });
+    </script>
+    <script>
       // Show message on hover
-        function sleep(ms) {
-          return new Promise(resolve => setTimeout(resolve, ms));
-        }
-        async function changeTo(x) {          
-          
-          $('#editor').append($('<p id="output"></p>'));
-          // console.log("Value " + document.getElementById("Text2").value);
-          $('#output').append("<P>This is a message").css("opacity", "0.6");
-          await sleep(2000);
-          $('#output').remove();         
-         
-        }
-        // Empty prediction buttons and append text
-        function text_append(predText){
-          // console.log(predText)
-          $("#tbody").append(predText);
-          $('#hidden_div').empty();
-        }
-      </script>
+      function sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+      }
+      async function changeTo(x) {          
         
-      <script>
-      // Handle text selections and POST requests  
-        $('#editor').on('click', function(){
-          var selectedText = "Hello";
-          if (window.getSelection) {
-              selectedText = window.getSelection().toString();
-              
-          } else if (document.selection && document.selection.type != "Control") {
-                text = document.selection.createRange().text;        
-          }
+        $('#editor').append($('<p id="output"></p>'));
+        // console.log("Value " + document.getElementById("Text2").value);
+        $('#output').append("<P>This is a message").css("opacity", "0.6");
+        await sleep(2000);
+        $('#output').remove();         
+        
+      }
+      // Empty prediction buttons and append text
+      function text_append(predText){
+        // console.log(predText)
+        selectedText = "";
+        $("#tbody").append(predText);
+        $('#hidden_div').empty();
+      }
+    </script>
+    <script>
+      // Handle text selections and POST requests
+      var selectedText = "";
+      
+      $('#editor').on('click', function(){
+        if (window.getSelection) {
+            selectedText = window.getSelection().toString();  
+        } else if (document.selection && document.selection.type != "Control") {
+            selectedText = document.selection.createRange().text;
+        }
+        var values = selectedText.split(' ').filter(function(v){return v!==''});
+        console.log(values)
+        if (values.length == 1) {
+          console.log("SYN request");
           $.ajax({
+              type : 'POST',
+              url : "{{url_for('synonyms')}}",
+              dataType:'json',
+              contentType: 'application/json;charset=utf-8',
+              data : JSON.stringify({'selectedText': selectedText}),
+              success: function(res){
+                  document.getElementById("synonym1").textContent = res.synonyms;
+                  document.getElementById("synonym2").textContent = res.synonyms1;
+              },
+          });
+        }
+      });
+          
+      $('#editor').on('keydown', function(evt) {
+        // Send prediction request on Alt Press
+        // https://stackoverflow.com/a/28084275
+        if (/*evt.key === 'Tab'*/ evt.altKey) {
+          $('#hidden_div').empty();
+          if (window.getSelection) {
+            selectedText = window.getSelection().toString();  
+          } else if (document.selection && document.selection.type != "Control") {
+            selectedText = document.selection.createRange().text;
+          }
+          var values = selectedText.split(' ').filter(function(v){return v!==''});
+          if (values.length > 1) {
+            evt.preventDefault();
+            console.log("Pressed Alt");
+            var genre = document.querySelector('input[name=optradio]:checked').value;
+            view_count();
+            var text = document.getElementById("editor").textContent;
+            var $t = $(evt.currentTarget);
+
+            $('#tbody').append($('<span class="spinner"></span>'));
+            console.log("POST enter");
+            // Get predicted generated texts
+            $.ajax({
                 type : 'POST',
-                url : "{{url_for('synonyms')}}",
+                url : "{{url_for('generate')}}",
                 dataType:'json',
                 contentType: 'application/json;charset=utf-8',
-                data : JSON.stringify({'selectedText': selectedText}),
+                data : JSON.stringify({'genre': genre, 'text': selectedText}),
                 success: function(res){
-                    document.getElementById("synonym1").textContent = res.synonyms;
-                    document.getElementById("synonym2").textContent = res.synonyms1;
+                  // Uncomment this as soon as th e reponse comes
+                  console.log("Text :" + selectedText);
+                  console.log("POST exit");
+                  $('.spinner').remove();
+                  var pred1 = '<a class="btn" onclick="text_append($(\'#Text1\').text())" style="box-shadow:0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);" id="Text1">' + res['text1'] + '</a>'
+                  var pred2 = '<a class="btn"  onclick="text_append($(\'#Text2\').text())" style="box-shadow:0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);" id="Text2">' + res['text2'] + '</a>'
+                  $(pred1).appendTo($('#hidden_div'));
+                  $(pred2).appendTo($('#hidden_div'));
                 },
             });
-                
-         });
-      </script>
+          }
+        };
+      });        
+    </script>
 {% endblock %}
