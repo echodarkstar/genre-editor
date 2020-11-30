@@ -528,13 +528,10 @@ padding: 8px;
             data : JSON.stringify({'selectedText': selectedText}),
             success: function(res){
               $('#synDiv').find('*').not('span').remove();
-              // $('#SynMsg').remove()
               res['synonyms'].forEach(function(item, index) {
                 $(syn_tag).appendTo($('#synDiv'));
                 $('.synonym').last().text(item)
               });
-              // document.getElementById("synonym1").textContent = res.synonyms;
-              // document.getElementById("synonym2").textContent = res.synonyms1;
             },
         });
       }
@@ -562,23 +559,32 @@ padding: 8px;
           $('#tbody').append($('<span class="spinner"></span>'));
           console.log("POST enter");
           // Get predicted generated texts
-          $.ajax({
-              type : 'POST',
-              url : "{{url_for('generate')}}",
-              dataType:'json',
-              contentType: 'application/json;charset=utf-8',
-              data : JSON.stringify({'genre': genre, 'text': selectedText}),
-              success: function(res){
-                // Uncomment this as soon as th e reponse comes
-                console.log("Text :" + selectedText);
-                console.log("POST exit");
+          $.when(
+              $.ajax({
+                type : 'POST',
+                url : "{{url_for('generate')}}",
+                dataType:'json',
+                contentType: 'application/json;charset=utf-8',
+                data : JSON.stringify({'genre': genre, 'text': selectedText}),
+                success: function(res){
+                  var pred1 = '<a class="btn" onclick="text_append($(\'#Text1\').text())" style="box-shadow:0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);" id="Text1">' + res['text'] + '</a>'
+                  $(pred1).appendTo($('#hidden_div'));
+                },
+              }),
+              $.ajax({
+                  type : 'POST',
+                  url : "{{url_for('generate')}}",
+                  dataType:'json',
+                  contentType: 'application/json;charset=utf-8',
+                  data : JSON.stringify({'genre': genre, 'text': selectedText}),
+                  success: function(res){
+                    var pred2 = '<a class="btn"  onclick="text_append($(\'#Text2\').text())" style="box-shadow:0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);" id="Text2">' + res['text'] + '</a>'
+                    $(pred2).appendTo($('#hidden_div'));
+                  },
+              })
+              ).then(function (resp1, resp2) {
                 $('.spinner').remove();
-                var pred1 = '<a class="btn" onclick="text_append($(\'#Text1\').text())" style="box-shadow:0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);" id="Text1">' + res['text1'] + '</a>'
-                var pred2 = '<a class="btn"  onclick="text_append($(\'#Text2\').text())" style="box-shadow:0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);" id="Text2">' + res['text2'] + '</a>'
-                $(pred1).appendTo($('#hidden_div'));
-                $(pred2).appendTo($('#hidden_div'));
-              },
-          });
+              })
         }
       };
     });        
