@@ -72,7 +72,7 @@ def generate():
 
     #Arguments
     context=tokenized_cond_text
-    num_samples=2
+    num_samples=1
     bag_of_words= bag_of_words
     discrim=None
     class_label=-1
@@ -222,7 +222,7 @@ def generate():
     total_text = [tokenizer.decode(x).replace('<|endoftext|>', '') for x in preds]
     for tot in total_text:
         logger.info(tot)
-    return jsonify({'success':True, 'text1':pred_text[0], 'text2':pred_text[1]}), 200, {'ContentType':'application/json'} 
+    return jsonify({'success':True, 'text':pred_text[0]}), 200, {'ContentType':'application/json'} 
 
 @app.route('/synonyms', methods=['POST'])
 def synonyms():
