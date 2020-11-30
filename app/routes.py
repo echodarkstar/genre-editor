@@ -62,6 +62,11 @@ def index():
 
 @app.route('/generate', methods=['POST'])
 def generate():
+    def num(s):
+        try:
+            return int(s)
+        except ValueError:
+            return float(s)
     start = time.time()
     torch.cuda.empty_cache()
     request.json['text'] = request.json['text'].strip()
@@ -70,26 +75,28 @@ def generate():
     tokenized_cond_text = tokenizer.encode(tokenizer.bos_token + request.json['text'])
     bag_of_words = (request.json['genre']).lower()
 
+    params = {k:num(v) for k,v in json.loads(request.json['params']).items()}
+    logger.info(params)
     #Arguments
     context=tokenized_cond_text
     num_samples=1
     bag_of_words= bag_of_words
     discrim=None
     class_label=-1
-    length=25
-    stepsize=0.03
-    temperature=1
-    top_k=10
+    length= params['length']
+    stepsize= params['stepsize']
+    temperature= params['tempSlider']
+    top_k= params['topk']
     sample=True
-    num_iterations=3
-    grad_length=10000
-    horizon_length=1
-    window_length=0
+    num_iterations= params['iterations']
+    grad_length= params['gradl']
+    horizon_length= params['horil']
+    window_length= params['windl']
     decay=False
-    gamma=1.5
-    gm_scale=0.9
-    kl_scale=0.01
-    repetition_penalty=1.0
+    gamma= params['gamma']
+    gm_scale= params['gms']
+    kl_scale= params['kls']
+    repetition_penalty= params['rep']
     
     classifier, class_id = get_classifier(discrim, class_label, device)
     bow_indices = []

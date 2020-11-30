@@ -219,7 +219,7 @@ padding: 8px;
                     <div class="btn-group">
                       </div>
                     <div class="btn-group">
-                      <input type="range" min="25" max="50" value="25" id="slider"> 
+                      <input type="range" min="10" max="50" value="25" id="slider"> 
                       <output id="output"></output>
                     </div>
                     <div class="btn-group">                    
@@ -238,7 +238,7 @@ padding: 8px;
                           <div class="modal-body">
                             <form>
                               <div class="btn-group">
-                                <input type="range" min="0" max="1" value="0" step="0.1" id="slider1"> 
+                                <input type="range" min="0" max="1" value="1" step="0.01" id="tempSlider"> 
                                 <output id="output1"></output>
                               </div>
                             </form>
@@ -249,7 +249,15 @@ padding: 8px;
                                 
                                 <label for="quantity">Number of Iterations - Number of times the model needs to be executed</label>
                                 <label for="quantity">Number of Iterations (between 1 and 5):</label>
-                                <input type="number" id="iterations" name="quantity" min="1" max="5" step="0.1" value="1">
+                                <input type="number" id="iterations" name="quantity" min="1" max="5" step="1" value="3">
+                              </div>
+                            </form>
+                          </div>
+                          <div class="modal-body">
+                            <form>
+                              <div class="btn-group">
+                                <label for="quantity">Step Size:</label>
+                                <input type="number" id="stepsize" name="quantity" min="0.01" max="0.1" step="0.01" value="0.03">
                               </div>
                             </form>
                           </div>
@@ -257,7 +265,7 @@ padding: 8px;
                             <form>
                               <div class="btn-group">
                                 <label for="quantity">Top K:</label>
-                                <input type="number" id="topk" name="quantity" min="1" max="5" step="0.1" value="1">
+                                <input type="number" id="topk" name="quantity" min="1" max="20" step="1" value="10">
                               </div>
                             </form>
                           </div>
@@ -265,7 +273,7 @@ padding: 8px;
                             <form>
                               <div class="btn-group">
                                 <label for="quantity">Grad Length:</label>
-                                <input type="number" id="gradl" name="quantity" min="1" max="5" step="0.1" value="1">
+                                <input type="number" id="gradl" name="quantity" min="8000" max="12000" step="100" value="10000">
                               </div>
                             </form>
                           </div>
@@ -273,7 +281,7 @@ padding: 8px;
                             <form>
                               <div class="btn-group">
                                 <label for="quantity">Horizon Length:</label>
-                                <input type="number" id="horil" name="quantity" min="1" max="5" step="0.1" value="1">
+                                <input type="number" id="horil" name="quantity" min="1" max="5" step="1" value="1">
                               </div>
                             </form>
                           </div>
@@ -281,7 +289,7 @@ padding: 8px;
                             <form>
                               <div class="btn-group">
                                 <label for="quantity">Window Length:</label>
-                                <input type="number" id="windl" name="quantity" min="1" max="5" step="0.1" value="1">
+                                <input type="number" id="windl" name="quantity" min="0" max="5" step="1" value="0">
                               </div>
                             </form>
                           </div>
@@ -289,7 +297,7 @@ padding: 8px;
                             <form>
                               <div class="btn-group">
                                 <label for="quantity">Gamma:</label>
-                                <input type="number" id="gamma" name="quantity" min="1" max="5" step="0.1" value="1">
+                                <input type="number" id="gamma" name="quantity" min="0" max="5" step="0.1" value="1.5">
                               </div>
                             </form>
                           </div>
@@ -297,7 +305,7 @@ padding: 8px;
                             <form>
                               <div class="btn-group">
                                 <label for="quantity">GM Scale:</label>
-                                <input type="number" id="gms" name="quantity" min="1" max="5" step="0.1" value="1">
+                                <input type="number" id="gms" name="quantity" min="0" max="5" step="0.1" value="0.9">
                               </div>
                             </form>
                           </div>
@@ -305,7 +313,7 @@ padding: 8px;
                             <form>
                               <div class="btn-group">
                                 <label for="quantity">KL Scale:</label>
-                                <input type="number" id="kls" name="quantity" min="1" max="5" step="0.1" value="1">
+                                <input type="number" id="kls" name="quantity" min="0" max="1" step="0.01" value="0.01">
                               </div>
                             </form>
                           </div>
@@ -313,7 +321,7 @@ padding: 8px;
                             <form>
                               <div class="btn-group">
                                 <label for="quantity">Repition Penality:</label>
-                                <input type="number" id="rep" name="quantity" min="1" max="5" step="0.1" value="1">
+                                <input type="number" id="rep" name="quantity" min="0" max="2" step="0.1" value="1">
                               </div>
                             </form>
                           </div>
@@ -558,6 +566,22 @@ padding: 8px;
 
           $('#tbody').append($('<span class="spinner"></span>'));
           console.log("POST enter");
+
+          var params_obj = new Object();
+          params_obj.topk = $('#topk').val();
+          params_obj.gradl = $('#gradl').val();
+          params_obj.horil = $('#horil').val();
+          params_obj.windl = $('#windl').val();
+          params_obj.gamma = $('#gamma').val();
+          params_obj.gms = $('#gms').val();
+          params_obj.kls = $('#kls').val();
+          params_obj.rep = $('#rep').val();
+          params_obj.tempSlider = $('#tempSlider').val();
+          params_obj.iterations = $('#iterations').val();
+          params_obj.stepsize = $('#stepsize').val();
+          params_obj.length = $('#slider').val();
+
+          var params = JSON.stringify(params_obj);
           // Get predicted generated texts
           $.when(
               $.ajax({
@@ -565,7 +589,7 @@ padding: 8px;
                 url : "{{url_for('generate')}}",
                 dataType:'json',
                 contentType: 'application/json;charset=utf-8',
-                data : JSON.stringify({'genre': genre, 'text': selectedText}),
+                data : JSON.stringify({'genre': genre, 'text': selectedText, 'params':params}),
                 success: function(res){
                   var pred1 = '<a class="btn" onclick="text_append($(\'#Text1\').text())" style="box-shadow:0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);" id="Text1">' + res['text'] + '</a>'
                   $(pred1).appendTo($('#hidden_div'));
@@ -576,7 +600,7 @@ padding: 8px;
                   url : "{{url_for('generate')}}",
                   dataType:'json',
                   contentType: 'application/json;charset=utf-8',
-                  data : JSON.stringify({'genre': genre, 'text': selectedText}),
+                  data : JSON.stringify({'genre': genre, 'text': selectedText, 'params':params}),
                   success: function(res){
                     var pred2 = '<a class="btn"  onclick="text_append($(\'#Text2\').text())" style="box-shadow:0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);" id="Text2">' + res['text'] + '</a>'
                     $(pred2).appendTo($('#hidden_div'));
@@ -604,11 +628,11 @@ padding: 8px;
     <script>
       document.getElementById('output').innerHTML = "No. of Words 25"; 
       
-      document.getElementById('output1').innerHTML = "No. of Words 25"; 
+      document.getElementById('output1').innerHTML = "Temperature 1"; 
       document.getElementById("slider").oninput = function() {
     myFunction()
 };
-document.getElementById("slider1").oninput = function() {
+document.getElementById("tempSlider").oninput = function() {
     myFunction1()
 };
      function myFunction() {
@@ -617,8 +641,8 @@ document.getElementById("slider1").oninput = function() {
    console.log(val)
 }
 function myFunction1() {
-   var val = document.getElementById("slider1").value //gets the oninput value
-   document.getElementById('output1').innerHTML = "No. of Words " + val //displays this value to the html page
+   var val = document.getElementById("tempSlider").value //gets the oninput value
+   document.getElementById('output1').innerHTML = "Temperature " + val //displays this value to the html page
    console.log("Iterations "+document.getElementById("iterations").value);
    console.log("Iterations "+document.getElementById("rep").value);
    console.log("Iterations "+document.getElementById("gamma").value);
