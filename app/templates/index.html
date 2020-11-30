@@ -369,13 +369,20 @@
         $('#output').remove();         
         
       }
-      // Empty prediction buttons and append text
-      function text_append(predText){
-        // console.log(predText)
-        selectedText = "";
-        $("#tbody").append(predText);
-        $('#hidden_div').empty();
-      }
+       // Empty prediction buttons and append text
+    function text_append(predText){
+      // Needs to be updated for generic postion of words
+      $('#hidden_div').empty();
+      var editText = document.getElementById('tbody').innerText.trim();
+      var n = editText.indexOf(selectedText.trim());
+      console.log("predText " + n);
+      console.log("Trimmed Text " + predText.length);
+      var finalText = document.getElementById('tbody').innerText.substring(0,n+selectedText.trim().length) + " " + predText + " " + document.getElementById('tbody').innerText.substring(n+selectedText.trim().length);
+      console.log("Final Text " + finalText);
+      selectedText = "";
+      document.getElementById("tbody").innerHTML = finalText;
+      //$("#tbody").append(predText);
+    }
     </script>
     <script>
       // Handle text selections and POST requests
