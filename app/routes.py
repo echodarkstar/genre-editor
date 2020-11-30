@@ -25,6 +25,7 @@ from app.run_pplm import get_classifier
 from app.run_pplm import get_bag_of_words_indices
 from app.run_pplm import generate_text_pplm
 import logging
+import copy
 
 logging.basicConfig(level=logging.INFO, format='%(message)s')
 logger = logging.getLogger()
@@ -61,7 +62,6 @@ def index():
 
 @app.route('/generate', methods=['POST'])
 def generate():
-
     start = time.time()
     torch.cuda.empty_cache()
     request.json['text'] = request.json['text'].strip()
@@ -81,7 +81,7 @@ def generate():
     temperature=1
     top_k=10
     sample=True
-    num_iterations=2
+    num_iterations=3
     grad_length=10000
     horizon_length=1
     window_length=0
