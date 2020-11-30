@@ -215,7 +215,14 @@
                       </div>
                     <input type="text" data-edit="inserttext" id="voiceBtn" x-webkit-speech="">
                   </div>
-    
+    		<div class="btn-group">
+                      </div>
+                    <div class="btn-group">
+                      <input type="range" min="25" max="50" value="25" id="slider"> 
+                      <output id="output"></output>
+                    </div>
+                  <input type="text" data-edit="inserttext" id="voiceBtn" x-webkit-speech="">
+                </div>
                 <form id="forms">
                   <div id="editor" tabindex="-1">
                     <p id="tbody">
@@ -369,18 +376,24 @@
         $('#output').remove();         
         
       }
-       // Empty prediction buttons and append text
+     // Empty prediction buttons and append text
     function text_append(predText){
       // Needs to be updated for generic postion of words
       $('#hidden_div').empty();
-      var editText = document.getElementById('tbody').innerText.trim();
+     /* $('#tbody').contents()
+      .filter(function(){
+        return this.nodeType===3;
+      }).text().replace(selectedText,selectedText + " " + predText);*/
+      console.log("Inner HTML" + $('#tbody').html());
+      $('#tbody').html($('#tbody').html().replace(selectedText,selectedText + " " + predText));
+     /*var editText = document.getElementById('tbody').innerText.trim();
       var n = editText.indexOf(selectedText.trim());
       console.log("predText " + n);
       console.log("Trimmed Text " + predText.length);
       var finalText = document.getElementById('tbody').innerText.substring(0,n+selectedText.trim().length) + " " + predText + " " + document.getElementById('tbody').innerText.substring(n+selectedText.trim().length);
-      console.log("Final Text " + finalText);
+      console.log("Final Text " + finalText);*/
       selectedText = "";
-      document.getElementById("tbody").innerHTML = finalText;
+      //document.getElementById("tbody").innerText = finalText;
       //$("#tbody").append(predText);
     }
     </script>
@@ -464,4 +477,27 @@
         };
       });        
     </script>
+ <script>
+    $('#editor').keydown(function(e) {
+    // trap the return key being pressed
+    if (e.keyCode == 13) {
+      // insert 2 br tags (if only one br tag is inserted the cursor won't go to the second line)
+      //document.execCommand('insertHTML', false, '$('#tbody').append<br><br>');
+      $('#tbody').append('<br></br>');
+      // prevent the default behaviour of return key pressed
+      return false;
+    }
+  });
+    </script>
+    <script>
+      document.getElementById('output').innerHTML = "No. of Words 25"; 
+      document.getElementById("slider").oninput = function() {
+    myFunction()
+};
+     function myFunction() {
+   var val = document.getElementById("slider").value //gets the oninput value
+   document.getElementById('output').innerHTML = "No. of Words " + val //displays this value to the html page
+   console.log(val)
+}
+      </script>
 {% endblock %}
