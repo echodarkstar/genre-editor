@@ -291,8 +291,7 @@
                             <h5 class="modal-title" id="exampleModalLabel">Help Information</h5>
                           </div>
                           <div class="modal-body">
-                            <h5 class="modal-title" id="info">This project focuses on improving the experience of writers and storytellers by complementing text editors with natural language generation capabilities. Currently, Google Docs has an auto-predict feature that suggests possible word completions. Huggingface extended this in “Write with Transformer” by providing multiple possible completions. We propose a text editor with genre based generation that allows the writer to switch between different genres using a hotkey. For example, switching between generative genres of “mystery” and “fantasy” allows the writer to exert some control over the generation process. Additional features include a hotkey for synonym retrieval to improve the writer’s experience. 
-                            </h5>
+                            <h5 class="modal-title" id="info">Tune the parameters to adjust the ouputs as per the requirement. Check the help button for more information regarding the parameters and model understanding </h5>
                           </div>
                           <div class="modal-body">
                             <form>
@@ -306,81 +305,79 @@
                             <form>
                               <div class="btn-group">
                                 
-                                <label for="quantity">Number of Iterations - Number of times the model needs to be executed</label>
-                                <label for="quantity">Number of Iterations (between 1 and 5):</label>
-                                <input type="number" id="iterations" name="quantity" min="1" max="5" step="1" value="3" style="width:80px">
+                                <label for="quantity">Number of Iterations (between 1 and 5): 
+                                  <input type="number" id="iterations" name="quantity" min="1" max="5" step="1" value="3" style="width:80px"></label>
                               </div>
                             </form>
                           </div>
                           <div class="modal-body">
                             <form>
                               <div class="btn-group">
-                                <label for="quantity">Step Size:</label>
-                                <input type="number" id="stepsize" name="quantity" min="0.01" max="0.1" step="0.01" value="0.03" style="width:80px">
+                                <label for="quantity">Step Size: <input type="number" id="stepsize" name="quantity" min="0.01" max="0.1" step="0.01" value="0.03" style="width:80px"></label>
                               </div>
                             </form>
                           </div>
                           <div class="modal-body">
                             <form>
                               <div class="btn-group">
-                                <label for="quantity">Top K:</label>
-                                <input type="number" id="topk" name="quantity" min="1" max="20" step="1" value="10" style="width:80px">
+                                <label for="quantity">Top K: 
+                                  <input type="number" id="topk" name="quantity" min="1" max="20" step="1" value="10" style="width:80px"></label>
                               </div>
                             </form>
                           </div>
                           <div class="modal-body">
                             <form>
                               <div class="btn-group">
-                                <label for="quantity">Grad Length:</label>
-                                <input type="number" id="gradl" name="quantity" min="8000" max="12000" step="100" value="10000" style="width:80px">
+                                <label for="quantity">Grad Length: 
+                                  <input type="number" id="gradl" name="quantity" min="8000" max="12000" step="100" value="10000" style="width:80px"></label>
                               </div>
                             </form>
                           </div>
                           <div class="modal-body">
                             <form>
                               <div class="btn-group">
-                                <label for="quantity">Horizon Length:</label>
-                                <input type="number" id="horil" name="quantity" min="1" max="5" step="1" value="1" style="width:80px">
+                                <label for="quantity">Horizon Length: 
+                                  <input type="number" id="horil" name="quantity" min="1" max="5" step="1" value="1" style="width:80px"></label>
                               </div>
                             </form>
                           </div>
                           <div class="modal-body">
                             <form>
                               <div class="btn-group">
-                                <label for="quantity">Window Length:</label>
-                                <input type="number" id="windl" name="quantity" min="0" max="5" step="1" value="0" style="width:80px">
+                                <label for="quantity">Window Length: 
+                                  <input type="number" id="windl" name="quantity" min="0" max="5" step="1" value="0" style="width:80px"></label>
                               </div>
                             </form>
                           </div>
                           <div class="modal-body">
                             <form>
                               <div class="btn-group">
-                                <label for="quantity">Gamma:</label>
-                                <input type="number" id="gamma" name="quantity" min="0" max="5" step="0.1" value="1.5" style="width:80px">
+                                <label for="quantity">Gamma: 
+                                  <input type="number" id="gamma" name="quantity" min="0" max="5" step="0.1" value="1.5" style="width:80px"></label>
                               </div>
                             </form>
                           </div>
                           <div class="modal-body">
                             <form>
                               <div class="btn-group">
-                                <label for="quantity">GM Scale:</label>
-                                <input type="number" id="gms" name="quantity" min="0" max="5" step="0.1" value="0.9" style="width:80px">
+                                <label for="quantity">GM Scale: 
+                                  <input type="number" id="gms" name="quantity" min="0" max="5" step="0.1" value="0.9" style="width:80px"></label>
                               </div>
                             </form>
                           </div>
                           <div class="modal-body">
                             <form>
                               <div class="btn-group">
-                                <label for="quantity">KL Scale:</label>
-                                <input type="number" id="kls" name="quantity" min="0" max="1" step="0.01" value="0.01" style="width:80px">
+                                <label for="quantity">KL Scale:
+                                  <input type="number" id="kls" name="quantity" min="0" max="1" step="0.01" value="0.01" style="width:80px"></label>
                               </div>
                             </form>
                           </div>
                           <div class="modal-body">
                             <form>
                               <div class="btn-group">
-                                <label for="quantity">Repition Penality:</label>
-                                <input type="number" id="rep" name="quantity" min="0" max="2" step="0.1" value="1" style="width:80px">
+                                <label for="quantity">Repition Penality:
+                                  <input type="number" id="rep" name="quantity" min="0" max="2" step="0.1" value="1" style="width:80px"></label>
                               </div>
                             </form>
                           </div>
@@ -568,6 +565,7 @@
       var finalText = document.getElementById('tbody').innerText.substring(0,n+selectedText.trim().length) + " " + predText + " " + document.getElementById('tbody').innerText.substring(n+selectedText.trim().length);
       console.log("Final Text " + finalText);*/
       selectedText = "";
+      view_count();
       //document.getElementById("tbody").innerText = finalText;
       //$("#tbody").append(predText);
     }
@@ -689,6 +687,7 @@
   });
     </script>
     <script>
+      view_count();
       document.getElementById('output').innerHTML = "No. of Words 25"; 
       
       document.getElementById('output1').innerHTML = "Temperature 1"; 
