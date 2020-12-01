@@ -159,7 +159,7 @@
           </div>
           <div class="col-xs-8">
             <div class="hero-unit" style="padding:10px; background-color :#FAFAFA; box-shadow:0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);;width:1200px;">
-              <h3>GENRE EDITOR,<small> {{ user.username }}!</small></h3>
+              <h3>Genre Editor</h3>
               <hr style="margin-top: -10px;margin-bottom: 0px;"/>
               <div id="alerts"></div>
               <div class="btn-toolbar" data-role="editor-toolbar" data-target="#editor">
@@ -276,116 +276,154 @@
                       <output id="output"></output>
                     </div>
                     <div class="btn-group">                    
-                      <a class="btn" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo" title="Help"><i class="glyphicon glyphicon-cog"></i></a>
+                      <a class="btn" data-toggle="modal" data-target="#exampleModal" title="Settings"><i class="glyphicon glyphicon-cog"></i></a>
                     </div>
                     <div class="btn-group">                    
-                      <a class="btn" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo" title="Help"><i class="glyphicon glyphicon-info-sign"></i></a>
+                      <a class="btn" data-toggle="modal" data-target="#infoModal" title="Info"><i class="glyphicon glyphicon-info-sign"></i></a>
                     </div>
                     <div class="btn-group">
                       <label id="view_count"></label>
                     </div>
                     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="overflow: auto;">
                       
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Help Information</h5>
-                          </div>
-                          <div class="modal-body">
-                            <h5 class="modal-title" id="info">Tune the parameters to adjust the ouputs as per the requirement. Check the help button for more information regarding the parameters and model understanding </h5>
-                          </div>
-                          <div class="modal-body">
-                            <form>
-                              <div class="btn-group">
-                                <input type="range" min="0" max="1" value="1" step="0.01" id="tempSlider"> 
-                                <output id="output1"></output>
-                              </div>
-                            </form>
-                          </div>
-                          <div class="modal-body">
-                            <form>
-                              <div class="btn-group">
-                                
-                                <label for="quantity">Number of Iterations (between 1 and 5): 
-                                  <input type="number" id="iterations" name="quantity" min="1" max="5" step="1" value="3" style="width:80px"></label>
-                              </div>
-                            </form>
-                          </div>
-                          <div class="modal-body">
-                            <form>
-                              <div class="btn-group">
-                                <label for="quantity">Step Size: <input type="number" id="stepsize" name="quantity" min="0.01" max="0.1" step="0.01" value="0.03" style="width:80px"></label>
-                              </div>
-                            </form>
-                          </div>
-                          <div class="modal-body">
-                            <form>
-                              <div class="btn-group">
-                                <label for="quantity">Top K: 
-                                  <input type="number" id="topk" name="quantity" min="1" max="20" step="1" value="10" style="width:80px"></label>
-                              </div>
-                            </form>
-                          </div>
-                          <div class="modal-body">
-                            <form>
-                              <div class="btn-group">
-                                <label for="quantity">Grad Length: 
-                                  <input type="number" id="gradl" name="quantity" min="8000" max="12000" step="100" value="10000" style="width:80px"></label>
-                              </div>
-                            </form>
-                          </div>
-                          <div class="modal-body">
-                            <form>
-                              <div class="btn-group">
-                                <label for="quantity">Horizon Length: 
-                                  <input type="number" id="horil" name="quantity" min="1" max="5" step="1" value="1" style="width:80px"></label>
-                              </div>
-                            </form>
-                          </div>
-                          <div class="modal-body">
-                            <form>
-                              <div class="btn-group">
-                                <label for="quantity">Window Length: 
-                                  <input type="number" id="windl" name="quantity" min="0" max="5" step="1" value="0" style="width:80px"></label>
-                              </div>
-                            </form>
-                          </div>
-                          <div class="modal-body">
-                            <form>
-                              <div class="btn-group">
-                                <label for="quantity">Gamma: 
-                                  <input type="number" id="gamma" name="quantity" min="0" max="5" step="0.1" value="1.5" style="width:80px"></label>
-                              </div>
-                            </form>
-                          </div>
-                          <div class="modal-body">
-                            <form>
-                              <div class="btn-group">
-                                <label for="quantity">GM Scale: 
-                                  <input type="number" id="gms" name="quantity" min="0" max="5" step="0.1" value="0.9" style="width:80px"></label>
-                              </div>
-                            </form>
-                          </div>
-                          <div class="modal-body">
-                            <form>
-                              <div class="btn-group">
-                                <label for="quantity">KL Scale:
-                                  <input type="number" id="kls" name="quantity" min="0" max="1" step="0.01" value="0.01" style="width:80px"></label>
-                              </div>
-                            </form>
-                          </div>
-                          <div class="modal-body">
-                            <form>
-                              <div class="btn-group">
-                                <label for="quantity">Repition Penality:
-                                  <input type="number" id="rep" name="quantity" min="0" max="2" step="0.1" value="1" style="width:80px"></label>
-                              </div>
-                            </form>
-                          </div>
-                          
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                          </div>
+                      <div class="">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel">Settings</h5>
                         </div>
+                        <div class="modal-body">
+                          <h5 class="modal-title" id="info">Tune the parameters to adjust the ouputs as per the requirement. Check the help button for more information regarding the parameters and model understanding </h5>
+                        </div>
+                        <div class="modal-body">
+                          <form>
+                            <div class="btn-group">
+                              <input type="range" min="0" max="1" value="1" step="0.01" id="tempSlider"> 
+                              <output id="output1"></output>
+                            </div>
+                          </form>
+                        </div>
+                        <div class="modal-body">
+                          <form>
+                            <div class="btn-group">
+                              
+                              <label for="quantity">Number of Iterations (between 1 and 5): 
+                                <input type="number" id="iterations" name="quantity" min="1" max="5" step="1" value="3" style="width:80px"></label>
+                            </div>
+                          </form>
+                        </div>
+                        <div class="modal-body">
+                          <form>
+                            <div class="btn-group">
+                              <label for="quantity">Step Size: <input type="number" id="stepsize" name="quantity" min="0.01" max="0.1" step="0.01" value="0.03" style="width:80px"></label>
+                            </div>
+                          </form>
+                        </div>
+                        <div class="modal-body">
+                          <form>
+                            <div class="btn-group">
+                              <label for="quantity">Top K: 
+                                <input type="number" id="topk" name="quantity" min="1" max="20" step="1" value="10" style="width:80px"></label>
+                            </div>
+                          </form>
+                        </div>
+                        <div class="modal-body">
+                          <form>
+                            <div class="btn-group">
+                              <label for="quantity">Grad Length: 
+                                <input type="number" id="gradl" name="quantity" min="8000" max="12000" step="100" value="10000" style="width:80px"></label>
+                            </div>
+                          </form>
+                        </div>
+                        <div class="modal-body">
+                          <form>
+                            <div class="btn-group">
+                              <label for="quantity">Horizon Length: 
+                                <input type="number" id="horil" name="quantity" min="1" max="5" step="1" value="1" style="width:80px"></label>
+                            </div>
+                          </form>
+                        </div>
+                        <div class="modal-body">
+                          <form>
+                            <div class="btn-group">
+                              <label for="quantity">Window Length: 
+                                <input type="number" id="windl" name="quantity" min="0" max="5" step="1" value="0" style="width:80px"></label>
+                            </div>
+                          </form>
+                        </div>
+                        <div class="modal-body">
+                          <form>
+                            <div class="btn-group">
+                              <label for="quantity">Gamma: 
+                                <input type="number" id="gamma" name="quantity" min="0" max="5" step="0.1" value="1.5" style="width:80px"></label>
+                            </div>
+                          </form>
+                        </div>
+                        <div class="modal-body">
+                          <form>
+                            <div class="btn-group">
+                              <label for="quantity">GM Scale: 
+                                <input type="number" id="gms" name="quantity" min="0" max="5" step="0.1" value="0.9" style="width:80px"></label>
+                            </div>
+                          </form>
+                        </div>
+                        <div class="modal-body">
+                          <form>
+                            <div class="btn-group">
+                              <label for="quantity">KL Scale:
+                                <input type="number" id="kls" name="quantity" min="0" max="1" step="0.01" value="0.01" style="width:80px"></label>
+                            </div>
+                          </form>
+                        </div>
+                        <div class="modal-body">
+                          <form>
+                            <div class="btn-group">
+                              <label for="quantity">Repition Penality:
+                                <input type="number" id="rep" name="quantity" min="0" max="2" step="0.1" value="1" style="width:80px"></label>
+                            </div>
+                          </form>
+                        </div>
+                        
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                      </div>
+                      
+                   
+                      
+                    </div>
+                    
+                    <div class="modal fade" id="infoModal" tabindex="-1" role="dialog" aria-labelledby="infoModalLabel" aria-hidden="true" style="overflow: auto;">
+                      <div class="">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="infoModalLabel">Information</h5>
+                        </div>
+                        <div class="modal-body">
+                          <h5 class="modal-title" id="info">Help & Documentation</h5>
+                        </div>
+                       <div class="modal-body">
+                         <h6>It is a common problem among writers to be faced with writer’s block, and to have so many ideas in your head that none of them land on the page. Can we tackle this problem through software design and machine learning?
+                          We decided to integrate predictions into the editor. All the writer has to do is select the text that will act as a prompt and press a hotkey. Taking Google’s autocomplete feature one step further, we provide multiple predictions based on the prompt in the editor’s text area. This allows the writer to pick their poison, and get creative with the hallucinations of the machine learning model!
+                          </h6>
+                       </div> 
+                        <div class="modal-body">
+                          <form>
+                            <div class="btn-group">
+                              <img src="/static/optimization-beyond-landscape-trajectories (2).png" class="img-fluid" alt="Responsive image" style="height:350px">
+                            </div>
+                          </form>
+                        </div>
+                        <div class="modal-body">
+                          <h6>Temperature - used to control the randomness of predictions</h6>
+                          <h6>Step Size - The gradient descent algorithm descends along a function by taking steps in the opposite direction of the gradient of that function</h6>                            
+                          <h6>Window Length - The number of words to be used for processing</h6>                            
+                          <h6>Repition Penality - Penality Factor if same sentence gets predicted more than once</h6>                       
+                        </div>
+                          
+            
+
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                      </div>
                       
                     </div>
                   <input type="text" data-edit="inserttext" id="voiceBtn" x-webkit-speech="">
@@ -400,7 +438,7 @@
                 </ul>
                 </div>                    
                 <div>
-                Press <b>Alt Key</b> for prediction</i>   
+                Select Text and Press <b>Alt Key</b> for prediction</i>   
                 </div> 
               </form>
           </div>
