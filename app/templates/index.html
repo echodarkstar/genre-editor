@@ -580,7 +580,6 @@
     async function changeTo(x) {          
       
       $('#editor').append($('<p id="output"></p>'));
-      // console.log("Value " + document.getElementById("Text2").value);
       $('#output').append("<P>This is a message").css("opacity", "0.6");
       await sleep(2000);
       $('#output').remove();         
@@ -590,18 +589,8 @@
     function text_append(predText){
       // Needs to be updated for generic postion of words
       $('#hidden_div').empty();
-     /* $('#tbody').contents()
-      .filter(function(){
-        return this.nodeType===3;
-      }).text().replace(selectedText,selectedText + " " + predText);*/
       console.log("Inner HTML" + $('#tbody').html());
       $('#tbody').html($('#tbody').html().replace(selectedText,selectedText + " " + predText));
-     /*var editText = document.getElementById('tbody').innerText.trim();
-      var n = editText.indexOf(selectedText.trim());
-      console.log("predText " + n);
-      console.log("Trimmed Text " + predText.length);
-      var finalText = document.getElementById('tbody').innerText.substring(0,n+selectedText.trim().length) + " " + predText + " " + document.getElementById('tbody').innerText.substring(n+selectedText.trim().length);
-      console.log("Final Text " + finalText);*/
       selectedText = "";
       view_count();
       //document.getElementById("tbody").innerText = finalText;
@@ -717,7 +706,6 @@
     // trap the return key being pressed
     if (e.keyCode == 13) {
       // insert 2 br tags (if only one br tag is inserted the cursor won't go to the second line)
-      //document.execCommand('insertHTML', false, '$('#tbody').append<br><br>');
       $('#tbody').append('<br></br>');
       // prevent the default behaviour of return key pressed
       return false;
@@ -750,6 +738,7 @@ function myFunction1() {
 }
       </script>
     <script>
+      // Creating a stucky notes by clicking on the plus sign
         $("#create").click(function() {
           $(this).before("<textarea></textarea>");
         });
