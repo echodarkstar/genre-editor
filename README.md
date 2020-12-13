@@ -17,7 +17,7 @@ UberAI developed an alternative to extensive fine-tuning: simple attribute model
 
 Let us go over the two Flask endpoints: /synonyms and /generate.
 * /synonyms: We use nltk to retrieve the synonyms of the selected word. A POST request to this endpoint is sent everytime the user selects a word.
-* /generate: Two AJAX POST requests are sent to this endpoint when the user selects text that contains atleast two words and presses the \keys{\Alt} key. The POST payload consists of the currently selected genre and the selected text. Inside the endpoint, the model takes this as input and proceeds to perform the updates as described in the previous section.
+* /generate: Two AJAX POST requests are sent to this endpoint when the user selects text that contains atleast two words and presses the **Alt** key. The POST payload consists of the currently selected genre and the selected text. Inside the endpoint, the model takes this as input and proceeds to perform the updates as described in the previous section.
 	
 ## Technologies
 Project is created with:
