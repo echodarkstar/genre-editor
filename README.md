@@ -15,8 +15,8 @@ Since the user might want to save the contents, a Save button is provided which 
 
 UberAI developed an alternative to extensive fine-tuning: simple attribute models (classifiers) based on user-defined wordlists. They refer to this model as PPLM (Plug and Play Language Models). The sampling process involves a forward and backward pass where gradients from this attribute model are used to change the hidden representations in the language model. In this case, the language model used is GPT-2
 Let us go over the two Flask endpoints: /synonyms and /generate.
-*[/synonyms]: We use nltk to retrieve the synonyms of the selected word. A POST request to this endpoint is sent everytime the user selects a word.
-*[/generate]: Two AJAX POST requests are sent to this endpoint when the user selects text that contains atleast two words and presses the \keys{\Alt} key. The POST payload consists of the currently selected genre and the selected text. Inside the endpoint, the model takes this as input and proceeds to perform the updates as described in the previous section.
+* [/synonyms]: We use nltk to retrieve the synonyms of the selected word. A POST request to this endpoint is sent everytime the user selects a word.
+* [/generate]: Two AJAX POST requests are sent to this endpoint when the user selects text that contains atleast two words and presses the \keys{\Alt} key. The POST payload consists of the currently selected genre and the selected text. Inside the endpoint, the model takes this as input and proceeds to perform the updates as described in the previous section.
 	
 ## Technologies
 Project is created with:
