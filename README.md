@@ -27,6 +27,7 @@ Project is created with:
 * Flask
 * Bootstrap
 * NLTK
+* Pytorch
 	
 ## Setup
 To run this project, install it locally using npm:
