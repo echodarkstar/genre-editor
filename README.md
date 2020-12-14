@@ -3,6 +3,7 @@ A text editor with generative capabilities that allows the user to generate text
 
 ## Table of contents
 * [About the Project](#about-the-project)
+* [System Design](#system-design)
 * [Technologies](#technologies)
 * [Setup](#setup)
 * [Screenshots](#screenshots)
@@ -21,6 +22,10 @@ UberAI developed an alternative to extensive fine-tuning: simple attribute model
 Let us go over the two Flask endpoints: /synonyms and /generate.
 * /synonyms: We use nltk to retrieve the synonyms of the selected word. A POST request to this endpoint is sent everytime the user selects a word.
 * /generate: Two AJAX POST requests are sent to this endpoint when the user selects text that contains atleast two words and presses the **Alt** key. The POST payload consists of the currently selected genre and the selected text. Inside the endpoint, the model takes this as input and proceeds to perform the updates as described in the previous section.
+
+## System Design
+
+[![dig.png](https://i.postimg.cc/QxkXc0vn/dig.png)](https://postimg.cc/vcTFsLYW)
 	
 ## Technologies
 Project is created with:
